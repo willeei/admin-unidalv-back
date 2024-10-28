@@ -1,0 +1,25 @@
+plugins {
+    id 'java-conventions'
+    id 'java-library'
+}
+
+group = 'com.willeei.unidalv'
+
+dependencies {
+    testImplementation 'net.datafaker:datafaker:2.4.0'
+}
+
+configurations {
+    testClasses {
+        extendsFrom(testImplementation)
+    }
+}
+
+tasks.register('testJar', Jar) {
+    archiveClassifier.set('test')
+    from sourceSets.test.output
+}
+
+artifacts {
+    testClasses testJar
+}

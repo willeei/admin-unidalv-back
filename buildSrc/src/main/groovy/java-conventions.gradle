@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+}
+
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation(platform('org.junit:junit-bom:5.11.2'))
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.2'
+
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.14.2'
+}
+
+jacoco {
+    toolVersion = "0.8.12"
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+tasks.register('unitTests', Test) {
+    useJUnitPlatform {
+        includeTags('unitTest')
+    }
+}
+
+tasks.register('integrationTests', Test) {
+    dependsOn('runFirstTest')
+    useJUnitPlatform {
+        includeTags('integrationTest')
+    }
+}
+
+tasks.register('e2eTests', Test) {
+    useJUnitPlatform {
+        includeTags('e2eTest')
+    }
+}

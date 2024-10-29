@@ -1,6 +1,6 @@
 package com.willeei.admin.unidalv.application.teen.create;
 
-import java.util.List;
+import java.util.Set;
 
 import com.willeei.admin.unidalv.domain.teen.Gender;
 
@@ -14,7 +14,7 @@ public record CreateTeenCommand(
         String guardianPhone,
         String guardianName,
         Gender gender,
-        List<String> presences) {
+        Set<String> presences) {
 
     public static CreateTeenCommand with(
             final String aName,
@@ -26,7 +26,7 @@ public record CreateTeenCommand(
             final String aGuardianPhone,
             final String aGuardianName,
             final Gender aGender,
-            final List<String> presences
+            final Set<String> presences
     ) {
         return new CreateTeenCommand(
                 aName,

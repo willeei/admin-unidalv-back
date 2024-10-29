@@ -5,7 +5,7 @@ import com.willeei.unidalv.domain.utils.IdUtils;
 
 import java.util.Objects;
 
-public class Worship extends ValueObject {
+public class Worship implements ValueObject {
 
     private final String id;
     private final String name;
@@ -25,31 +25,15 @@ public class Worship extends ValueObject {
         return new Worship(id, name, point);
     }
 
-    public String id() {
+    public String getId() {
         return id;
     }
 
-    public String name() {
+    public String getName() {
         return name;
     }
 
-    public int point() {
+    public int getPoint() {
         return point;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        final Worship worship = (Worship) o;
-        return Objects.equals(id, worship.id) && Objects.equals(name, worship.name);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = Objects.hashCode(id);
-        result = 31 * result + Objects.hashCode(name);
-        return result;
     }
 }

@@ -7,7 +7,6 @@ import com.willeei.unidalv.domain.validation.Validator;
 public class TeenValidator extends Validator {
 
     private static final int NAME_MAX_LENGTH = 255;
-    private static final int BIRTH_DATE_MAX_LENGTH = 10;
     private static final int NAME_MIN_LENGTH = 3;
     private final Teen teen;
 
@@ -26,7 +25,7 @@ public class TeenValidator extends Validator {
     }
 
     private void checkNameConstraints() {
-        final var name = this.teen.name();
+        final var name = this.teen.getName();
         if (name == null) {
             this.validationHandler().append(new Error("'name' should not be null"));
             return;
@@ -44,7 +43,7 @@ public class TeenValidator extends Validator {
     }
 
     private void checkBirthDateConstraints() {
-        final var birthDate = this.teen.birthDate();
+        final var birthDate = this.teen.getBirthDate();
         if (birthDate == null) {
             this.validationHandler().append(new Error("'birthDate' should not be null"));
             return;
@@ -56,7 +55,7 @@ public class TeenValidator extends Validator {
     }
 
     private void checkPhoneConstraints() {
-        final var phone = this.teen.phone();
+        final var phone = this.teen.getPhone();
         if (phone == null) {
             this.validationHandler().append(new Error("'phone' should not be null"));
             return;
@@ -68,7 +67,7 @@ public class TeenValidator extends Validator {
     }
 
     private void checkGuardianPhoneConstraints() {
-        final var guardianPhone = this.teen.guardianPhone();
+        final var guardianPhone = this.teen.getGuardianPhone();
         if (guardianPhone == null) {
             this.validationHandler().append(new Error("'guardianPhone' should not be null"));
             return;
@@ -80,7 +79,7 @@ public class TeenValidator extends Validator {
     }
 
     private void checkGuardianNameConstraints() {
-        final var guardianName = this.teen.guardianName();
+        final var guardianName = this.teen.getGuardianName();
         if (guardianName == null) {
             this.validationHandler().append(new Error("'guardianName' should not be null"));
             return;

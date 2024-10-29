@@ -1,5 +1,6 @@
 package com.willeei.unidalv.domain.presence;
 
+import com.willeei.unidalv.domain.pagination.Pagination;
 import com.willeei.unidalv.domain.pagination.SearchQuery;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface PresenceGateway {
 
     List<PresenceID> existsByIds(Iterable<PresenceID> ids);
 
-    List<Presence> findAll(SearchQuery aQuery);
+    Pagination<Presence> findAll(SearchQuery aQuery);
 
     Optional<Presence> findById(PresenceID anId);
 

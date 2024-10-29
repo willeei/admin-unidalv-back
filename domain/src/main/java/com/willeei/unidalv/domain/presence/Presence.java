@@ -21,7 +21,7 @@ public class Presence extends AggregateRoot<PresenceID> {
     private String year;
     private PresenceType type;
     private Worship worship;
-    private boolean valid;
+    private boolean active;
     private Instant updatedAt;
     private Instant deletedAt;
 
@@ -34,7 +34,7 @@ public class Presence extends AggregateRoot<PresenceID> {
             final String aYear,
             final PresenceType aType,
             final Worship aWorship,
-            final boolean isValid,
+            final boolean isActive,
             final Instant aCreationDate,
             final Instant aUpdateDate,
             final Instant aDeletedDate
@@ -47,7 +47,7 @@ public class Presence extends AggregateRoot<PresenceID> {
         this.year = aYear;
         this.type = aType;
         this.worship = aWorship;
-        this.valid = isValid;
+        this.active = isActive;
         this.createdAt = aCreationDate;
         this.updatedAt = aUpdateDate;
         this.deletedAt = aDeletedDate;
@@ -58,13 +58,13 @@ public class Presence extends AggregateRoot<PresenceID> {
             final LocalDate aDate,
             final PresenceType aType,
             final Worship aWorship,
-            final boolean isValid
+            final boolean isActive
     ) {
         Objects.requireNonNull(aDate, "'date' should not be null");
 
         final var anId = PresenceID.unique();
         final var now = Instant.now();
-        final var deletedAt = isValid ? null : now;
+        final var deletedAt = isActive ? null : now;
 
         final var date = LocalDateUtils.with(aDate);
         final var day = date.day();
@@ -73,7 +73,7 @@ public class Presence extends AggregateRoot<PresenceID> {
         final var month = date.month();
         final var year = date.year();
 
-        return new Presence(anId, day, weekYear, weekMonth, month, year, aType, aWorship, isValid, now, now, deletedAt);
+        return new Presence(anId, day, weekYear, weekMonth, month, year, aType, aWorship, isActive, now, now, deletedAt);
     }
 
     public static Presence with(
@@ -85,7 +85,7 @@ public class Presence extends AggregateRoot<PresenceID> {
             final String aYear,
             final PresenceType aType,
             final Worship aWorship,
-            final boolean isValid,
+            final boolean isActive,
             final Instant aCreationDate,
             final Instant aUpdateDate,
             final Instant aDeletedDate
@@ -99,7 +99,7 @@ public class Presence extends AggregateRoot<PresenceID> {
                 aYear,
                 aType,
                 aWorship,
-                isValid,
+                isActive,
                 aCreationDate,
                 aUpdateDate,
                 aDeletedDate
@@ -109,17 +109,17 @@ public class Presence extends AggregateRoot<PresenceID> {
     public static Presence with(final Presence aPresence) {
         return new Presence(
                 aPresence.getId(),
-                aPresence.day(),
-                aPresence.weekYear(),
-                aPresence.weekMonth(),
-                aPresence.month(),
-                aPresence.year(),
-                aPresence.type(),
-                aPresence.worship(),
-                aPresence.isValid(),
-                aPresence.createdAt(),
-                aPresence.updatedAt(),
-                aPresence.deletedAt()
+                aPresence.getDay(),
+                aPresence.getWeekYear(),
+                aPresence.getWeekMonth(),
+                aPresence.getMonth(),
+                aPresence.getYear(),
+                aPresence.getType(),
+                aPresence.getWorship(),
+                aPresence.isActive(),
+                aPresence.getCreatedAt(),
+                aPresence.getUpdatedAt(),
+                aPresence.getDeletedAt()
         );
     }
 
@@ -132,7 +132,7 @@ public class Presence extends AggregateRoot<PresenceID> {
             final LocalDate aDate,
             final PresenceType aType,
             final Worship aWorship,
-            final boolean isValid
+            final boolean isActive
     ) {
         final var date = LocalDateUtils.with(aDate);
         this.day = date.day();
@@ -142,69 +142,70 @@ public class Presence extends AggregateRoot<PresenceID> {
         this.year = date.year();
         this.type = aType;
         this.worship = aWorship;
-        this.valid = isValid;
+        this.active = isActive;
         this.updatedAt = InstantUtils.now();
         selfValidate();
         return this;
     }
 
-    public Presence validated() {
+    public Presence activate() {
         this.deletedAt = null;
-        this.valid = true;
+        this.active = true;
         this.updatedAt = InstantUtils.now();
         return this;
     }
 
-    public Presence invalidated() {
-        if (deletedAt() == null) {
+    public Presence deactivate() {
+        if (getDeletedAt() == null) {
             this.deletedAt = InstantUtils.now();
         }
-        this.valid = false;
-        this.updatedAt = Instant.now();
+
+        this.active = false;
+        this.updatedAt = InstantUtils.now();
         return this;
     }
 
-    public String day() {
-        return day;
-    }
-
-    public String weekYear() {
-        return weekYear;
-    }
-
-    public String weekMonth() {
-        return weekMonth;
-    }
-
-    public String month() {
-        return month;
-    }
-
-    public String year() {
-        return year;
-    }
-
-    public PresenceType type() {
-        return type;
-    }
-
-    public Worship worship() {
-        return worship;
-    }
-
-    public boolean isValid() {
-        return valid;
-    }
-
-    public Instant createdAt() {
+    public Instant getCreatedAt() {
         return createdAt;
     }
 
-    public Instant updatedAt() {
+    public String getDay() {
+        return day;
+    }
+
+    public String getWeekYear() {
+        return weekYear;
+    }
+
+    public String getWeekMonth() {
+        return weekMonth;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public PresenceType getType() {
+        return type;
+    }
+
+    public Worship getWorship() {
+        return worship;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public Instant getUpdatedAt() {
         return updatedAt;
     }
 
-    public Instant deletedAt() {
+    public Instant getDeletedAt() {
         return deletedAt;
     }
 

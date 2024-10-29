@@ -20,14 +20,14 @@ public class PresenceValidator extends Validator {
     }
 
     private void checkPresenceTypeConstraints() {
-        final var type = this.presence.type();
+        final var type = this.presence.getType();
         if (type == null) {
             this.validationHandler().append(new Error("'type' should not be null"));
         }
     }
 
     private void checkWorshipConstraints() {
-        final var worship = this.presence.worship();
+        final var worship = this.presence.getWorship();
         if (worship == null) {
             this.validationHandler().append(new Error("'worship' should not be null"));
         }

@@ -32,17 +32,17 @@ class PresenceTest extends UnitTest {
         // then
         Assertions.assertNotNull(actualPresence);
         Assertions.assertNotNull(actualPresence.getId());
-        Assertions.assertEquals(expectedDay, actualPresence.day());
-        Assertions.assertEquals(expectedWeekYear, actualPresence.weekYear());
-        Assertions.assertEquals(expectedWeekMonth, actualPresence.weekMonth());
-        Assertions.assertEquals(expectedMonth, actualPresence.month());
-        Assertions.assertEquals(expectedYear, actualPresence.year());
-        Assertions.assertEquals(expectedType, actualPresence.type());
-        Assertions.assertEquals(expectedWorship, actualPresence.worship());
-        Assertions.assertEquals(expectedValid, actualPresence.isValid());
-        Assertions.assertNotNull(actualPresence.createdAt());
-        Assertions.assertNotNull(actualPresence.updatedAt());
-        Assertions.assertNull(actualPresence.deletedAt());
+        Assertions.assertEquals(expectedDay, actualPresence.getDay());
+        Assertions.assertEquals(expectedWeekYear, actualPresence.getWeekYear());
+        Assertions.assertEquals(expectedWeekMonth, actualPresence.getWeekMonth());
+        Assertions.assertEquals(expectedMonth, actualPresence.getMonth());
+        Assertions.assertEquals(expectedYear, actualPresence.getYear());
+        Assertions.assertEquals(expectedType, actualPresence.getType());
+        Assertions.assertEquals(expectedWorship, actualPresence.getWorship());
+        Assertions.assertEquals(expectedValid, actualPresence.isActive());
+        Assertions.assertNotNull(actualPresence.getCreatedAt());
+        Assertions.assertNotNull(actualPresence.getUpdatedAt());
+        Assertions.assertNull(actualPresence.getDeletedAt());
 
     }
 

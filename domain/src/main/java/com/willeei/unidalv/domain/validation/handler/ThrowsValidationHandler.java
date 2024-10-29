@@ -1,6 +1,5 @@
 package com.willeei.unidalv.domain.validation.handler;
 
-
 import com.willeei.unidalv.domain.exceptions.DomainException;
 import com.willeei.unidalv.domain.validation.Error;
 import com.willeei.unidalv.domain.validation.ValidationHandler;

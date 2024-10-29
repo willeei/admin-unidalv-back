@@ -3,7 +3,6 @@ package com.willeei.unidalv.domain.teen;
 import com.willeei.unidalv.domain.AggregateRoot;
 import com.willeei.unidalv.domain.exceptions.NotificationException;
 import com.willeei.unidalv.domain.presence.PresenceID;
-import com.willeei.unidalv.domain.utils.BirthDateUtils;
 import com.willeei.unidalv.domain.utils.InstantUtils;
 import com.willeei.unidalv.domain.validation.ValidationHandler;
 import com.willeei.unidalv.domain.validation.handler.Notification;
@@ -24,6 +23,7 @@ public class Teen extends AggregateRoot<TeenID> {
     private String phone;
     private String guardianPhone;
     private String guardianName;
+    private Gender gender;
     private Instant enrollmentDate;
     private Instant reEnrollmentDate;
     private List<PresenceID> presences;
@@ -42,6 +42,7 @@ public class Teen extends AggregateRoot<TeenID> {
             final String aGuardianName,
             final Instant anEnrollmentDate,
             final Instant aReEnrollmentDate,
+            final Gender aGender,
             final List<PresenceID> presences,
             final Instant aCreationDate,
             final Instant aUpdateDate,
@@ -58,6 +59,7 @@ public class Teen extends AggregateRoot<TeenID> {
         this.guardianName = aGuardianName;
         this.enrollmentDate = anEnrollmentDate;
         this.reEnrollmentDate = aReEnrollmentDate;
+        this.gender = aGender;
         this.presences = presences;
         this.createdAt = aCreationDate;
         this.updatedAt = aUpdateDate;
@@ -73,14 +75,16 @@ public class Teen extends AggregateRoot<TeenID> {
             final boolean hasDiscipleship,
             final String aPhone,
             final String aGuardianPhone,
-            final String aGuardianName
+            final String aGuardianName,
+            final Gender aGender,
+            final List<PresenceID> presences
     ) {
-        final var id = TeenID.unique();
+        final var anId = TeenID.unique();
         final var now = InstantUtils.now();
         final var deletedAt = isActive ? null : now;
         final var reEnrollmentDate = isActive ? null : now;
         return new Teen(
-                id,
+                anId,
                 aName,
                 aBirthDate,
                 isMember,
@@ -91,7 +95,8 @@ public class Teen extends AggregateRoot<TeenID> {
                 aGuardianName,
                 now,
                 reEnrollmentDate,
-                new ArrayList<>(),
+                aGender,
+                presences,
                 now,
                 now,
                 deletedAt
@@ -110,6 +115,7 @@ public class Teen extends AggregateRoot<TeenID> {
             final String guardianName,
             final Instant enrollmentDate,
             final Instant reEnrollmentDate,
+            final Gender gender,
             final List<PresenceID> presences,
             final Instant createdAt,
             final Instant updatedAt,
@@ -127,6 +133,7 @@ public class Teen extends AggregateRoot<TeenID> {
                 guardianName,
                 enrollmentDate,
                 reEnrollmentDate,
+                gender,
                 presences,
                 createdAt,
                 updatedAt,
@@ -137,20 +144,21 @@ public class Teen extends AggregateRoot<TeenID> {
     public static Teen with(final Teen aTeen) {
         return with(
                 aTeen.getId(),
-                aTeen.name(),
-                aTeen.birthDate(),
+                aTeen.getName(),
+                aTeen.getBirthDate(),
                 aTeen.isMember(),
                 aTeen.isActive(),
-                aTeen.hasDiscipleship(),
-                aTeen.phone(),
-                aTeen.guardianPhone(),
-                aTeen.guardianName(),
-                aTeen.enrollmentDate(),
-                aTeen.reEnrollmentDate(),
-                new ArrayList<>(aTeen.presences),
-                aTeen.createdAt(),
-                aTeen.updatedAt(),
-                aTeen.deletedAt()
+                aTeen.isDiscipleship(),
+                aTeen.getPhone(),
+                aTeen.getGuardianPhone(),
+                aTeen.getGuardianName(),
+                aTeen.getEnrollmentDate(),
+                aTeen.getReEnrollmentDate(),
+                aTeen.getGender(),
+                new ArrayList<>(aTeen.getPresences()),
+                aTeen.getCreatedAt(),
+                aTeen.getUpdatedAt(),
+                aTeen.getDeletedAt()
         );
     }
 
@@ -169,6 +177,7 @@ public class Teen extends AggregateRoot<TeenID> {
             final String aGuardianPhone,
             final String aGuardianName,
             final Instant anEnrollmentDate,
+            final Gender aGender,
             final List<PresenceID> presences
     ) {
 
@@ -186,7 +195,8 @@ public class Teen extends AggregateRoot<TeenID> {
         this.guardianPhone = aGuardianPhone;
         this.guardianName = aGuardianName;
         this.enrollmentDate = anEnrollmentDate;
-        this.presences = new ArrayList<>(presences != null ? presences : Collections.emptyList());
+        this.gender = aGender;
+        this.setPresences(presences);
         this.updatedAt = InstantUtils.now();
         selfValidate();
         return this;
@@ -204,7 +214,7 @@ public class Teen extends AggregateRoot<TeenID> {
     }
 
     public Teen deactivate() {
-        if (deletedAt() == null) {
+        if (getDeletedAt() == null) {
             this.deletedAt = InstantUtils.now();
         }
 
@@ -213,16 +223,24 @@ public class Teen extends AggregateRoot<TeenID> {
         return this;
     }
 
-    public String name() {
+    public List<PresenceID> getPresences() {
+        return presences != null ? Collections.unmodifiableList(presences) : Collections.emptyList();
+    }
+
+    public void setPresences(final List<PresenceID> presences) {
+        this.presences = presences != null ? new ArrayList<>(presences) : Collections.emptyList();
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public String getName() {
         return name;
     }
 
-    public String birthDate() {
+    public String getBirthDate() {
         return birthDate;
-    }
-
-    public int age() {
-        return BirthDateUtils.age(birthDate);
     }
 
     public boolean isMember() {
@@ -233,44 +251,40 @@ public class Teen extends AggregateRoot<TeenID> {
         return active;
     }
 
-    public boolean hasDiscipleship() {
+    public boolean isDiscipleship() {
         return discipleship;
     }
 
-    public String phone() {
+    public String getPhone() {
         return phone;
     }
 
-    public String guardianPhone() {
+    public String getGuardianPhone() {
         return guardianPhone;
     }
 
-    public String guardianName() {
+    public String getGuardianName() {
         return guardianName;
     }
 
-    public Instant enrollmentDate() {
+    public Instant getEnrollmentDate() {
         return enrollmentDate;
     }
 
-    public Instant reEnrollmentDate() {
+    public Instant getReEnrollmentDate() {
         return reEnrollmentDate;
     }
 
-    public List<PresenceID> presences() {
-        return Collections.unmodifiableList(presences);
-    }
-
-    public Instant createdAt() {
-        return createdAt;
-    }
-
-    public Instant updatedAt() {
+    public Instant getUpdatedAt() {
         return updatedAt;
     }
 
-    public Instant deletedAt() {
+    public Instant getDeletedAt() {
         return deletedAt;
+    }
+
+    public Gender getGender() {
+        return gender;
     }
 
     private void selfValidate() {
@@ -305,6 +319,15 @@ public class Teen extends AggregateRoot<TeenID> {
             return this;
         }
         this.presences.remove(presenceID);
+        this.updatedAt = InstantUtils.now();
+        return this;
+    }
+
+    public Teen removePresences(final List<PresenceID> presences) {
+        if (presences == null || presences.isEmpty()) {
+            return this;
+        }
+        this.presences.removeAll(presences);
         this.updatedAt = InstantUtils.now();
         return this;
     }

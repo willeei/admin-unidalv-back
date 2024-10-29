@@ -19,12 +19,15 @@ public non-sealed class DefaultCreatePresenceUseCase extends CreatePresenceUseCa
     public CreatePresenceOutput execute(final CreatePresenceCommand aCmd) {
         final var aDate = aCmd.date();
         final var aType = aCmd.type();
-        final var aWorship = aCmd.service();
+        final var aService = aCmd.service();
+        final var aTeen = aCmd.teen();
         final var isActive = aCmd.isActive();
 
         final var notification = Notification.create();
 
-        final var aPresence = notification.validate(() -> Presence.newPresence(aDate, aType, aWorship, isActive));
+        final var aPresence = notification.validate(
+                () -> Presence.newPresence(aDate, aType, aService, aTeen, isActive)
+        );
 
         if (notification.hasError()) {
             notify(notification);

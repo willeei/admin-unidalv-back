@@ -16,7 +16,7 @@ public class PresenceValidator extends Validator {
     @Override
     public void validate() {
         checkPresenceTypeConstraints();
-        checkWorshipConstraints();
+        checkServiceConstraints();
     }
 
     private void checkPresenceTypeConstraints() {
@@ -26,8 +26,8 @@ public class PresenceValidator extends Validator {
         }
     }
 
-    private void checkWorshipConstraints() {
-        final var worship = this.presence.getWorship();
+    private void checkServiceConstraints() {
+        final var worship = this.presence.getService();
         if (worship == null) {
             this.validationHandler().append(new Error("'worship' should not be null"));
         }

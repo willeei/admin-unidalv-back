@@ -5,6 +5,7 @@ import java.time.Instant;
 import com.willeei.admin.unidalv.domain.presence.Presence;
 import com.willeei.admin.unidalv.domain.presence.PresenceType;
 import com.willeei.admin.unidalv.domain.service.Service;
+import com.willeei.admin.unidalv.domain.teen.Teen;
 
 public record PresenceOutput(
         String day,
@@ -14,6 +15,7 @@ public record PresenceOutput(
         String year,
         PresenceType type,
         Service service,
+        Teen teen,
         boolean isActive,
         Instant createdAt,
         Instant updatedAt,
@@ -27,7 +29,8 @@ public record PresenceOutput(
                 aPresence.getMonth(),
                 aPresence.getYear(),
                 aPresence.getType(),
-                aPresence.getWorship(),
+                aPresence.getService(),
+                aPresence.getTeen(),
                 aPresence.isActive(),
                 aPresence.getCreatedAt(),
                 aPresence.getUpdatedAt(),

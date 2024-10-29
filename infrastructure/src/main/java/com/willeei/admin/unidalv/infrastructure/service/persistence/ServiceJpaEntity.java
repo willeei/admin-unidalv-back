@@ -1,4 +1,4 @@
-package com.willeei.admin.unidalv.infrastructure.configuration.presence.persistence;
+package com.willeei.admin.unidalv.infrastructure.service.persistence;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

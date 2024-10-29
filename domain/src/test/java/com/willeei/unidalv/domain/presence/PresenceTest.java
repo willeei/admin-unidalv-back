@@ -39,7 +39,7 @@ class PresenceTest extends UnitTest {
         Assertions.assertEquals(expectedMonth, actualPresence.getMonth());
         Assertions.assertEquals(expectedYear, actualPresence.getYear());
         Assertions.assertEquals(expectedType, actualPresence.getType());
-        Assertions.assertEquals(expectedWorship, actualPresence.getWorship());
+        Assertions.assertEquals(expectedWorship, actualPresence.getService());
         Assertions.assertEquals(expectedValid, actualPresence.isActive());
         Assertions.assertNotNull(actualPresence.getCreatedAt());
         Assertions.assertNotNull(actualPresence.getUpdatedAt());

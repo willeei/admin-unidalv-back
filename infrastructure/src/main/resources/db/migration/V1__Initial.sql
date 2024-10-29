@@ -6,13 +6,12 @@ CREATE TABLE presences (
     week_year VARCHAR(4) NOT NULL,
     week_month VARCHAR(4) NOT NULL,
     type VARCHAR(15) NOT NULL,
-    full_date DATETIME(6) NOT NULL,
     active BOOLEAN NOT NULL DEFAULT TRUE,
     teen_id CHAR(32) NOT NULL,
-    worship_id CHAR(32) NOT NULL,
+    service_id CHAR(32) NOT NULL,
     created_at DATETIME(6) NOT NULL,
     updated_at DATETIME(6) NOT NULL,
     deleted_at DATETIME(6) NULL,
     CONSTRAINT fk_teen_id FOREIGN KEY (teen_id) REFERENCES teens (id) ON DELETE CASCADE,
-    CONSTRAINT fk_worship_id FOREIGN KEY (worship_id) REFERENCES worships (id) ON DELETE CASCADE
+    CONSTRAINT fk_service_id FOREIGN KEY (worship_id) REFERENCES services (id) ON DELETE CASCADE
 );

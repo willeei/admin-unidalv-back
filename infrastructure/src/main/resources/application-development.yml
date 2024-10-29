@@ -1,0 +1,11 @@
+mysql:
+  username: root
+  password: 9655
+  schema: adm_unidalv
+  url: localhost:3306
+
+spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+      - org.springframework.boot.autoconfigure.security.oauth2.resource.servlet.OAuth2ResourceServerAutoConfiguration

@@ -1,8 +1,8 @@
 package com.willeei.unidalv.domain;
 
-import com.willeei.unidalv.domain.presence.PresenceType;
-import com.willeei.unidalv.domain.presence.Worship;
-import com.willeei.unidalv.domain.utils.IdUtils;
+import com.willeei.admin.unidalv.domain.presence.PresenceType;
+import com.willeei.admin.unidalv.domain.service.Service;
+import com.willeei.admin.unidalv.domain.utils.IdUtils;
 
 import net.datafaker.Faker;
 
@@ -18,8 +18,8 @@ public final class Fixture {
         return FAKER.bool().bool();
     }
 
-    public static Worship worship() {
-        return Worship.with(IdUtils.uuid(), name(), Presence.Worship.point());
+    public static Service worship() {
+        return Service.with(IdUtils.uuid(), name(), Presence.Worship.point());
     }
 
     public static final class Presence {

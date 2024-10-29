@@ -1,0 +1,40 @@
+version: "3.7"
+
+services:
+  mysql:
+    container_name: adm_unidalv_mysql
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: adm_unidalv
+      MYSQL_ROOT_HOST: '%'
+    security_opt:
+      - seccomp:unconfined
+    ports:
+      - "3306:3306"
+    volumes:
+      - ../.docker/mysql:/var/lib/mysql:rw
+    networks:
+      - adm_unidalv_services
+
+  keycloak:
+    container_name: adm_unidalv_keycloak
+    image: quay.io/keycloak/keycloak:20.0.3
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    ports:
+      - "8443:8443"
+    command:
+      #      - start-dev # Utilizar esse comando quando a aplicação estiver executando fora do Docker
+      - start-dev --http-port=8443 --hostname-url=http://keycloak.internal:8443 # Utilizar esse comando quando a aplicação estiver dentro do Docker
+    volumes:
+      - ../.docker/keycloak:/opt/keycloak/data/h2:rw
+    networks:
+      - adm_unidalv_services
+    extra_hosts:
+      - "keycloak.internal:127.0.0.1"
+
+networks:
+  adm_unidalv_services:
+    external: true

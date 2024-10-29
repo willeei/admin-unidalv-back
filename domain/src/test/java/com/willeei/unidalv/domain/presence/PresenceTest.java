@@ -1,9 +1,10 @@
 package com.willeei.unidalv.domain.presence;
 
+import com.willeei.admin.unidalv.domain.presence.Presence;
 import com.willeei.unidalv.domain.Fixture;
 import com.willeei.unidalv.domain.UnitTest;
-import com.willeei.unidalv.domain.exceptions.NotificationException;
-import com.willeei.unidalv.domain.utils.LocalDateUtils;
+import com.willeei.admin.unidalv.domain.exceptions.NotificationException;
+import com.willeei.admin.unidalv.domain.utils.LocalDateUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

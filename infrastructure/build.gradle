@@ -1,15 +1,93 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.flywaydb:flyway-mysql:10.18.2'
+    }
+}
+
 plugins {
     id 'java-conventions'
-    id 'java-library'
+    id 'jacoco-report-aggregation'
+    id 'application'
+    id 'org.springframework.boot' version '2.7.18'
+    id 'io.spring.dependency-management' version '1.1.6'
+    id 'org.flywaydb.flyway' version '10.18.2'
 }
 
-group = 'com.willeei.unidalv'
+group = 'com.willeei.admin.unidalv'
+
+bootJar {
+    archiveBaseName.set('application.jar')
+    destinationDirectory.set(file("${rootProject.buildDir}/libs"))
+}
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation(project(":domain"))
+    implementation(project(":application"))
+
+    implementation('com.google.cloud:google-cloud-storage:2.43.1')
+    implementation('com.google.guava:guava:33.3.1-jre')
+
+    implementation('mysql:mysql-connector-java:8.0.33')
+
+    implementation('org.springdoc:springdoc-openapi-webmvc-core:1.8.0')
+    implementation('org.springdoc:springdoc-openapi-ui:1.8.0')
+
+    implementation('org.springframework.boot:spring-boot-starter-web') {
+        exclude module: 'spring-boot-starter-tomcat'
+    }
+
+    implementation('org.springframework.boot:spring-boot-starter-undertow')
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation('org.springframework.boot:spring-boot-starter-amqp')
+    implementation('org.springframework.boot:spring-boot-starter-security')
+    implementation('org.springframework.boot:spring-boot-starter-oauth2-client')
+    implementation('org.springframework.boot:spring-boot-starter-oauth2-resource-server')
+
+    implementation('com.fasterxml.jackson.module:jackson-module-afterburner')
+
+    testImplementation('org.flywaydb:flyway-core')
+    testImplementation('org.flywaydb:flyway-mysql')
+
+    implementation('org.yaml:snakeyaml:2.3') {
+        version { strictly('2.3') }
+    }
+
+    testImplementation 'org.springframework.amqp:spring-rabbit-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+
+    testImplementation(project(path: ':domain', configuration: 'testClasses'))
+    testImplementation('org.testcontainers:testcontainers:1.20.2')
+    testImplementation('org.testcontainers:mysql:1.20.2')
+    testImplementation('org.testcontainers:junit-jupiter:1.20.2')
+
+    testRuntimeOnly('com.h2database:h2:2.3.232')
 }
 
-test {
-    useJUnitPlatform()
+flyway {
+    url = System.getenv('FLYWAY_DB') ?: 'jdbc:mysql://localhost:3306/adm_videos'
+    user = System.getenv('FLYWAY_USER') ?: 'root'
+    password = System.getenv('FLYWAY_PASS') ?: '9655'
+    cleanDisabled = false
+}
+
+testCodeCoverageReport {
+    reports {
+        xml {
+            enabled true
+            destination file("${rootProject.rootDir}/build/reports/jacoco/test/jacocoTestReport.xml")
+        }
+
+        html {
+            enabled true
+            destination file("${rootProject.rootDir}/build/reports/jacoco/test/")
+        }
+    }
+}
+
+tasks.named('jacocoTestReport') {
+    dependsOn tasks.named('testCodeCoverageReport', JacocoReport)
 }

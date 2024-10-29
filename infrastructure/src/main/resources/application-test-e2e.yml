@@ -1,0 +1,13 @@
+keycloak:
+  realm: test
+  host: http://test:8443
+
+logging:
+  level:
+    ROOT: info
+
+mysql:
+  username: root
+  password: 123456
+  schema: adm_unidalv
+  url: localhost:${mysql.port}

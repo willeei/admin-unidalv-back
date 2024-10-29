@@ -147,7 +147,7 @@ public class Teen extends AggregateRoot<TeenID> {
                 aTeen.getBirthDate(),
                 aTeen.isMember(),
                 aTeen.isActive(),
-                aTeen.isDiscipleship(),
+                aTeen.hasDiscipleship(),
                 aTeen.getPhone(),
                 aTeen.getGuardianPhone(),
                 aTeen.getGuardianName(),
@@ -246,7 +246,7 @@ public class Teen extends AggregateRoot<TeenID> {
         return active;
     }
 
-    public boolean isDiscipleship() {
+    public boolean hasDiscipleship() {
         return discipleship;
     }
 

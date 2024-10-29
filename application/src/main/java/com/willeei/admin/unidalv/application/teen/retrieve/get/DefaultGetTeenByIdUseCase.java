@@ -22,5 +22,4 @@ public final class DefaultGetTeenByIdUseCase extends GetTeenByIdUseCase {
                 .map(TeenOutput::from)
                 .orElseThrow(() -> NotFoundException.with(Teen.class, aTeenId));
     }
-
 }

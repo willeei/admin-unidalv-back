@@ -1,9 +1,9 @@
 package com.willeei.admin.unidalv.domain.teen;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.willeei.admin.unidalv.domain.AggregateRoot;
 import com.willeei.admin.unidalv.domain.exceptions.NotificationException;
@@ -26,7 +26,7 @@ public class Teen extends AggregateRoot<TeenID> {
     private Gender gender;
     private Instant enrollmentDate;
     private Instant reEnrollmentDate;
-    private List<PresenceID> presences;
+    private Set<PresenceID> presences;
     private Instant updatedAt;
     private Instant deletedAt;
 
@@ -43,7 +43,7 @@ public class Teen extends AggregateRoot<TeenID> {
             final Instant anEnrollmentDate,
             final Instant aReEnrollmentDate,
             final Gender aGender,
-            final List<PresenceID> presences,
+            final Set<PresenceID> presences,
             final Instant aCreationDate,
             final Instant aUpdateDate,
             final Instant aDeleteDate
@@ -76,8 +76,7 @@ public class Teen extends AggregateRoot<TeenID> {
             final String aPhone,
             final String aGuardianPhone,
             final String aGuardianName,
-            final Gender aGender,
-            final List<PresenceID> presences
+            final Gender aGender
     ) {
         final var anId = TeenID.unique();
         final var now = InstantUtils.now();
@@ -96,7 +95,7 @@ public class Teen extends AggregateRoot<TeenID> {
                 now,
                 reEnrollmentDate,
                 aGender,
-                presences,
+                new HashSet<>(),
                 now,
                 now,
                 deletedAt
@@ -116,7 +115,7 @@ public class Teen extends AggregateRoot<TeenID> {
             final Instant enrollmentDate,
             final Instant reEnrollmentDate,
             final Gender gender,
-            final List<PresenceID> presences,
+            final Set<PresenceID> presences,
             final Instant createdAt,
             final Instant updatedAt,
             final Instant deletedAt
@@ -148,14 +147,14 @@ public class Teen extends AggregateRoot<TeenID> {
                 aTeen.getBirthDate(),
                 aTeen.isMember(),
                 aTeen.isActive(),
-                aTeen.isDiscipleship(),
+                aTeen.hasDiscipleship(),
                 aTeen.getPhone(),
                 aTeen.getGuardianPhone(),
                 aTeen.getGuardianName(),
                 aTeen.getEnrollmentDate(),
                 aTeen.getReEnrollmentDate(),
                 aTeen.getGender(),
-                new ArrayList<>(aTeen.getPresences()),
+                new HashSet<>(aTeen.getPresences()),
                 aTeen.getCreatedAt(),
                 aTeen.getUpdatedAt(),
                 aTeen.getDeletedAt()
@@ -178,7 +177,7 @@ public class Teen extends AggregateRoot<TeenID> {
             final String aGuardianName,
             final Instant anEnrollmentDate,
             final Gender aGender,
-            final List<PresenceID> presences
+            final Set<PresenceID> presences
     ) {
 
         if (isActive) {
@@ -196,7 +195,7 @@ public class Teen extends AggregateRoot<TeenID> {
         this.guardianName = aGuardianName;
         this.enrollmentDate = anEnrollmentDate;
         this.gender = aGender;
-        this.setPresences(presences);
+        this.presences = new HashSet<>(presences != null ? presences : Collections.emptySet());
         this.updatedAt = InstantUtils.now();
         selfValidate();
         return this;
@@ -223,12 +222,8 @@ public class Teen extends AggregateRoot<TeenID> {
         return this;
     }
 
-    public List<PresenceID> getPresences() {
-        return presences != null ? Collections.unmodifiableList(presences) : Collections.emptyList();
-    }
-
-    public void setPresences(final List<PresenceID> presences) {
-        this.presences = presences != null ? new ArrayList<>(presences) : Collections.emptyList();
+    public Set<PresenceID> getPresences() {
+        return presences != null ? Collections.unmodifiableSet(presences) : Collections.emptySet();
     }
 
     public Instant getCreatedAt() {
@@ -251,7 +246,7 @@ public class Teen extends AggregateRoot<TeenID> {
         return active;
     }
 
-    public boolean isDiscipleship() {
+    public boolean hasDiscipleship() {
         return discipleship;
     }
 
@@ -305,7 +300,7 @@ public class Teen extends AggregateRoot<TeenID> {
         return this;
     }
 
-    public Teen addPresences(final List<PresenceID> presences) {
+    public Teen addPresences(final Set<PresenceID> presences) {
         if (presences == null || presences.isEmpty()) {
             return this;
         }
@@ -323,7 +318,7 @@ public class Teen extends AggregateRoot<TeenID> {
         return this;
     }
 
-    public Teen removePresences(final List<PresenceID> presences) {
+    public Teen removePresences(final Set<PresenceID> presences) {
         if (presences == null || presences.isEmpty()) {
             return this;
         }

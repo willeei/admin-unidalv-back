@@ -1,10 +1,12 @@
-package com.willeei.admin.unidalv.application.teen.create;
+package com.willeei.admin.unidalv.application.teen.update;
 
+import java.time.Instant;
 import java.util.Set;
 
 import com.willeei.admin.unidalv.domain.teen.Gender;
 
-public record CreateTeenCommand(
+public record UpdateTeenCommand(
+        String id,
         String name,
         String birthDate,
         boolean isMember,
@@ -14,9 +16,11 @@ public record CreateTeenCommand(
         String guardianPhone,
         String guardianName,
         Gender gender,
+        Instant reEnrollmentDate,
         Set<String> presences) {
 
-    public static CreateTeenCommand with(
+    public static UpdateTeenCommand with(
+            final String anId,
             final String aName,
             final String aBirthDate,
             final Boolean isMember,
@@ -26,9 +30,11 @@ public record CreateTeenCommand(
             final String aGuardianPhone,
             final String aGuardianName,
             final Gender aGender,
+            final Instant aReEnrollmentDate,
             final Set<String> presences
     ) {
-        return new CreateTeenCommand(
+        return new UpdateTeenCommand(
+                anId,
                 aName,
                 aBirthDate,
                 isMember != null ? isMember : Boolean.FALSE,
@@ -38,6 +44,7 @@ public record CreateTeenCommand(
                 aGuardianPhone,
                 aGuardianName,
                 aGender,
+                aReEnrollmentDate,
                 presences
         );
     }

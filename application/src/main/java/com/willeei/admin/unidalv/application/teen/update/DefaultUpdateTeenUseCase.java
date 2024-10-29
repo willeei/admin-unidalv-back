@@ -1,31 +1,37 @@
-package com.willeei.admin.unidalv.application.teen.create;
+package com.willeei.admin.unidalv.application.teen.update;
 
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+import com.willeei.admin.unidalv.domain.Identifier;
+import com.willeei.admin.unidalv.domain.exceptions.DomainException;
+import com.willeei.admin.unidalv.domain.exceptions.NotFoundException;
 import com.willeei.admin.unidalv.domain.exceptions.NotificationException;
 import com.willeei.admin.unidalv.domain.presence.PresenceGateway;
 import com.willeei.admin.unidalv.domain.presence.PresenceID;
 import com.willeei.admin.unidalv.domain.teen.Teen;
 import com.willeei.admin.unidalv.domain.teen.TeenGateway;
+import com.willeei.admin.unidalv.domain.teen.TeenID;
 import com.willeei.admin.unidalv.domain.validation.Error;
 import com.willeei.admin.unidalv.domain.validation.ValidationHandler;
 import com.willeei.admin.unidalv.domain.validation.handler.Notification;
 
-public non-sealed class DefaultCreateTeenUseCase extends CreateTeenUseCase {
+public non-sealed class DefaultUpdateTeenUseCase extends UpdateTeenUseCase {
 
     private final PresenceGateway presenceGateway;
     private final TeenGateway teenGateway;
 
-    public DefaultCreateTeenUseCase(final TeenGateway teenGateway, final PresenceGateway presenceGateway) {
+    public DefaultUpdateTeenUseCase(final TeenGateway teenGateway, final PresenceGateway presenceGateway) {
         this.presenceGateway = Objects.requireNonNull(presenceGateway);
         this.teenGateway = Objects.requireNonNull(teenGateway);
     }
 
     @Override
-    public CreateTeenOutput execute(final CreateTeenCommand aCmd) {
+    public UpdateTeenOutput execute(final UpdateTeenCommand aCmd) {
+        final var anId = TeenID.from(aCmd.id());
         final var aName = aCmd.name();
         final var aBirthDate = aCmd.birthDate();
         final var isMember = aCmd.isMember();
@@ -35,13 +41,16 @@ public non-sealed class DefaultCreateTeenUseCase extends CreateTeenUseCase {
         final var aGuardianPhone = aCmd.guardianPhone();
         final var aGuardianName = aCmd.guardianName();
         final var aGender = aCmd.gender();
+        final var aReEnrollmentDate = aCmd.reEnrollmentDate();
         final var presences = toPresenceID(aCmd.presences());
+
+        final var aTeen = this.teenGateway.findById(anId)
+                .orElseThrow(notFound(anId));
 
         final var notification = Notification.create();
         notification.append(validatePresences(presences));
-
-        final var aTeen = notification.validate(
-                () -> Teen.newTeen(
+        notification.validate(
+                () -> aTeen.update(
                         aName,
                         aBirthDate,
                         isMember,
@@ -50,17 +59,19 @@ public non-sealed class DefaultCreateTeenUseCase extends CreateTeenUseCase {
                         aPhone,
                         aGuardianPhone,
                         aGuardianName,
-                        aGender
+                        aReEnrollmentDate,
+                        aGender,
+                        presences
                 )
         );
 
         if (notification.hasError()) {
-            throw new NotificationException("Could not create Aggregate Teen", notification);
+            throw new NotificationException("Could not update Aggregate Teen %s".formatted(aCmd.id()), notification);
         }
 
         aTeen.addPresences(presences);
 
-        return CreateTeenOutput.from(this.teenGateway.create(aTeen));
+        return UpdateTeenOutput.from(this.teenGateway.update(aTeen));
     }
 
     private ValidationHandler validatePresences(final Set<PresenceID> ids) {
@@ -83,6 +94,10 @@ public non-sealed class DefaultCreateTeenUseCase extends CreateTeenUseCase {
         }
 
         return notification;
+    }
+
+    private Supplier<DomainException> notFound(final Identifier anId) {
+        return () -> NotFoundException.with(Teen.class, anId);
     }
 
     private Set<PresenceID> toPresenceID(final Set<String> presences) {

@@ -1,5 +1,8 @@
 package com.willeei.admin.unidalv.application.presence.update;
 
+import java.util.Objects;
+import java.util.function.Supplier;
+
 import com.willeei.admin.unidalv.domain.Identifier;
 import com.willeei.admin.unidalv.domain.exceptions.NotFoundException;
 import com.willeei.admin.unidalv.domain.exceptions.NotificationException;
@@ -7,9 +10,6 @@ import com.willeei.admin.unidalv.domain.presence.Presence;
 import com.willeei.admin.unidalv.domain.presence.PresenceGateway;
 import com.willeei.admin.unidalv.domain.presence.PresenceID;
 import com.willeei.admin.unidalv.domain.validation.handler.Notification;
-
-import java.util.Objects;
-import java.util.function.Supplier;
 
 public non-sealed class DefaultUpdatePresenceUseCase extends UpdatePresenceUseCase {
 

@@ -6,8 +6,7 @@ public record CreateServiceCommand(
         String name,
         int point,
         boolean isActive,
-        Set<String> presences
-) {
+        Set<String> presences) {
 
     public static CreateServiceCommand with(
             final String aName,

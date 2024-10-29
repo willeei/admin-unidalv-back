@@ -1,9 +1,9 @@
 package com.willeei.admin.unidalv.domain.exceptions;
 
-import com.willeei.admin.unidalv.domain.validation.Error;
-
 import java.io.Serial;
 import java.util.List;
+
+import com.willeei.admin.unidalv.domain.validation.Error;
 
 public class DomainException extends NoStacktraceException {
 

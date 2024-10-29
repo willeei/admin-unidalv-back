@@ -1,10 +1,10 @@
 package com.willeei.admin.unidalv.application.presence.retrieve.list;
 
+import java.util.Objects;
+
 import com.willeei.admin.unidalv.domain.pagination.Pagination;
 import com.willeei.admin.unidalv.domain.pagination.SearchQuery;
 import com.willeei.admin.unidalv.domain.presence.PresenceGateway;
-
-import java.util.Objects;
 
 public final class DefaultListPresenceByIdUseCase extends ListPresenceUseCase {
 

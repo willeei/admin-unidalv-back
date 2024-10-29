@@ -1,11 +1,11 @@
 package com.willeei.admin.unidalv.application.presence.create;
 
+import java.util.Objects;
+
 import com.willeei.admin.unidalv.domain.exceptions.NotificationException;
 import com.willeei.admin.unidalv.domain.presence.Presence;
 import com.willeei.admin.unidalv.domain.presence.PresenceGateway;
 import com.willeei.admin.unidalv.domain.validation.handler.Notification;
-
-import java.util.Objects;
 
 public non-sealed class DefaultCreatePresenceUseCase extends CreatePresenceUseCase {
 

@@ -1,9 +1,9 @@
 package com.willeei.admin.unidalv.domain.presence;
 
+import java.util.Objects;
+
 import com.willeei.admin.unidalv.domain.Identifier;
 import com.willeei.admin.unidalv.domain.utils.IdUtils;
-
-import java.util.Objects;
 
 public class PresenceID extends Identifier {
 

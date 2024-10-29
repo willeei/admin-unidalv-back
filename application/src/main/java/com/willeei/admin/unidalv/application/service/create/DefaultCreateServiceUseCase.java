@@ -1,5 +1,10 @@
 package com.willeei.admin.unidalv.application.service.create;
 
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import com.willeei.admin.unidalv.domain.exceptions.NotificationException;
 import com.willeei.admin.unidalv.domain.presence.PresenceGateway;
 import com.willeei.admin.unidalv.domain.presence.PresenceID;
@@ -8,11 +13,6 @@ import com.willeei.admin.unidalv.domain.service.ServiceGateway;
 import com.willeei.admin.unidalv.domain.validation.Error;
 import com.willeei.admin.unidalv.domain.validation.ValidationHandler;
 import com.willeei.admin.unidalv.domain.validation.handler.Notification;
-
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public non-sealed class DefaultCreateServiceUseCase extends CreateServiceUseCase {
 

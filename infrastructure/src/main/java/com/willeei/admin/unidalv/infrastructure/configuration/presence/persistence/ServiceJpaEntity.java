@@ -1,19 +1,19 @@
 package com.willeei.admin.unidalv.infrastructure.configuration.presence.persistence;
 
-import com.willeei.admin.unidalv.domain.service.Service;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.willeei.admin.unidalv.domain.service.Service;
+
 @Entity
-@Table(name = "worship_jpa_entity")
-public class WorshipJpaEntity {
+@Table(name = "service_jpa_entity")
+public class ServiceJpaEntity {
 
     @Id
     private Long id;
 
-    public static WorshipJpaEntity from(Service service) {
+    public static ServiceJpaEntity from(final Service service) {
         return null;
     }
 
@@ -28,6 +28,5 @@ public class WorshipJpaEntity {
     public void setId(Long id) {
         this.id = id;
     }
-
 
 }

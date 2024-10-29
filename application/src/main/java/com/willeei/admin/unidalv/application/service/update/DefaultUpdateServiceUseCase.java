@@ -1,5 +1,11 @@
 package com.willeei.admin.unidalv.application.service.update;
 
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+
 import com.willeei.admin.unidalv.domain.Identifier;
 import com.willeei.admin.unidalv.domain.exceptions.DomainException;
 import com.willeei.admin.unidalv.domain.exceptions.NotFoundException;
@@ -12,12 +18,6 @@ import com.willeei.admin.unidalv.domain.service.ServiceID;
 import com.willeei.admin.unidalv.domain.validation.Error;
 import com.willeei.admin.unidalv.domain.validation.ValidationHandler;
 import com.willeei.admin.unidalv.domain.validation.handler.Notification;
-
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 public non-sealed class DefaultUpdateServiceUseCase extends UpdateServiceUseCase {
 

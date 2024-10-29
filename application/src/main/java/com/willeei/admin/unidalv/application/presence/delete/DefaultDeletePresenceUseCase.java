@@ -1,9 +1,9 @@
 package com.willeei.admin.unidalv.application.presence.delete;
 
+import java.util.Objects;
+
 import com.willeei.admin.unidalv.domain.presence.PresenceGateway;
 import com.willeei.admin.unidalv.domain.presence.PresenceID;
-
-import java.util.Objects;
 
 public non-sealed class DefaultDeletePresenceUseCase extends DeletePresenceUseCase {
 

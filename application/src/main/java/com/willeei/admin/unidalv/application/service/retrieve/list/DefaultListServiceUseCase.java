@@ -1,10 +1,10 @@
 package com.willeei.admin.unidalv.application.service.retrieve.list;
 
+import java.util.Objects;
+
 import com.willeei.admin.unidalv.domain.pagination.Pagination;
 import com.willeei.admin.unidalv.domain.pagination.SearchQuery;
 import com.willeei.admin.unidalv.domain.service.ServiceGateway;
-
-import java.util.Objects;
 
 public non-sealed class DefaultListServiceUseCase extends ListServiceUseCase {
 

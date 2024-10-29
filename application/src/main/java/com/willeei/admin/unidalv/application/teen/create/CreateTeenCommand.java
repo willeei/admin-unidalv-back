@@ -14,8 +14,7 @@ public record CreateTeenCommand(
         String guardianPhone,
         String guardianName,
         Gender gender,
-        List<String> presences
-) {
+        List<String> presences) {
 
     public static CreateTeenCommand with(
             final String aName,

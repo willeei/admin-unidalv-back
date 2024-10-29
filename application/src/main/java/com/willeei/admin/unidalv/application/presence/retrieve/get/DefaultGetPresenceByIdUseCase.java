@@ -1,11 +1,11 @@
 package com.willeei.admin.unidalv.application.presence.retrieve.get;
 
+import java.util.Objects;
+
 import com.willeei.admin.unidalv.domain.exceptions.NotFoundException;
 import com.willeei.admin.unidalv.domain.presence.Presence;
 import com.willeei.admin.unidalv.domain.presence.PresenceGateway;
 import com.willeei.admin.unidalv.domain.presence.PresenceID;
-
-import java.util.Objects;
 
 public final class DefaultGetPresenceByIdUseCase extends GetPresenceByIdUseCase {
 

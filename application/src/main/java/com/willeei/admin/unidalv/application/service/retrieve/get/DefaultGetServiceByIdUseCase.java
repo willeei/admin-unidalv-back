@@ -1,11 +1,11 @@
 package com.willeei.admin.unidalv.application.service.retrieve.get;
 
+import java.util.Objects;
+
 import com.willeei.admin.unidalv.domain.exceptions.NotFoundException;
 import com.willeei.admin.unidalv.domain.service.Service;
 import com.willeei.admin.unidalv.domain.service.ServiceGateway;
 import com.willeei.admin.unidalv.domain.service.ServiceID;
-
-import java.util.Objects;
 
 public non-sealed class DefaultGetServiceByIdUseCase extends GetServiceByIdUseCase {
 

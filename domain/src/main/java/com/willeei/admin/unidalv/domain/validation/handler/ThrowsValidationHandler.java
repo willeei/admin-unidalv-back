@@ -1,10 +1,10 @@
 package com.willeei.admin.unidalv.domain.validation.handler;
 
+import java.util.List;
+
 import com.willeei.admin.unidalv.domain.exceptions.DomainException;
 import com.willeei.admin.unidalv.domain.validation.Error;
 import com.willeei.admin.unidalv.domain.validation.ValidationHandler;
-
-import java.util.List;
 
 public class ThrowsValidationHandler implements ValidationHandler {
 

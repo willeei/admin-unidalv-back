@@ -7,8 +7,7 @@ public record UpdateServiceCommand(
         String name,
         int point,
         boolean isActive,
-        Set<String> presences
-) {
+        Set<String> presences) {
 
     public static UpdateServiceCommand with(
             final String id,

@@ -2,7 +2,7 @@ package com.willeei.unidalv.domain;
 
 import com.willeei.admin.unidalv.domain.presence.PresenceType;
 import com.willeei.admin.unidalv.domain.service.Service;
-import com.willeei.admin.unidalv.domain.utils.IdUtils;
+import com.willeei.admin.unidalv.domain.service.ServiceID;
 
 import net.datafaker.Faker;
 
@@ -18,8 +18,17 @@ public final class Fixture {
         return FAKER.bool().bool();
     }
 
-    public static Service worship() {
-        return Service.with(IdUtils.uuid(), name(), Presence.Worship.point());
+    public static Service service() {
+        return Service.with(
+                ServiceID.unique(),
+                name(),
+                Presence.Service.point(),
+                bool(),
+                null,
+                null,
+                null,
+                null
+        );
     }
 
     public static final class Presence {
@@ -28,7 +37,7 @@ public final class Fixture {
             return FAKER.options().option(PresenceType.values());
         }
 
-        public static final class Worship {
+        public static final class Service {
 
             public static int point() {
                 return FAKER.random().nextInt(50, 200);

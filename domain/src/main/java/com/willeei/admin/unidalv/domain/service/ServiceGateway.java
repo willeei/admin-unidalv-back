@@ -1,10 +1,10 @@
 package com.willeei.admin.unidalv.domain.service;
 
-import com.willeei.admin.unidalv.domain.pagination.Pagination;
-import com.willeei.admin.unidalv.domain.pagination.SearchQuery;
-
 import java.util.List;
 import java.util.Optional;
+
+import com.willeei.admin.unidalv.domain.pagination.Pagination;
+import com.willeei.admin.unidalv.domain.pagination.SearchQuery;
 
 public interface ServiceGateway {
 

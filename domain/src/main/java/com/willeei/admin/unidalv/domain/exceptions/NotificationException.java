@@ -1,8 +1,8 @@
 package com.willeei.admin.unidalv.domain.exceptions;
 
-import com.willeei.admin.unidalv.domain.validation.handler.Notification;
-
 import java.io.Serial;
+
+import com.willeei.admin.unidalv.domain.validation.handler.Notification;
 
 public class NotificationException extends DomainException {
 

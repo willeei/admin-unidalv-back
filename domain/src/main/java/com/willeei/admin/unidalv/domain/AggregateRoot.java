@@ -1,9 +1,9 @@
 package com.willeei.admin.unidalv.domain;
 
-import com.willeei.admin.unidalv.domain.event.DomainEvent;
-
 import java.util.Collections;
 import java.util.List;
+
+import com.willeei.admin.unidalv.domain.event.DomainEvent;
 
 public abstract class AggregateRoot<I extends Identifier> extends Entity<I> {
 

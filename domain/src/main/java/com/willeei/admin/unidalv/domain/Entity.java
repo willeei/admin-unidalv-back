@@ -1,13 +1,13 @@
 package com.willeei.admin.unidalv.domain;
 
-import com.willeei.admin.unidalv.domain.event.DomainEvent;
-import com.willeei.admin.unidalv.domain.event.DomainEventPublisher;
-import com.willeei.admin.unidalv.domain.validation.ValidationHandler;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+
+import com.willeei.admin.unidalv.domain.event.DomainEvent;
+import com.willeei.admin.unidalv.domain.event.DomainEventPublisher;
+import com.willeei.admin.unidalv.domain.validation.ValidationHandler;
 
 public abstract class Entity<I extends Identifier> {
 

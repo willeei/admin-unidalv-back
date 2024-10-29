@@ -1,11 +1,19 @@
 package com.willeei.admin.unidalv.infrastructure.configuration.presence.persistence;
 
+import java.time.Instant;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import com.willeei.admin.unidalv.domain.presence.Presence;
 import com.willeei.admin.unidalv.domain.presence.PresenceID;
 import com.willeei.admin.unidalv.domain.presence.PresenceType;
-
-import javax.persistence.*;
-import java.time.Instant;
 
 @Entity(name = "Presence")
 @Table(name = "presences")
@@ -39,7 +47,7 @@ public class PresenceJpaEntity {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "worship_id", nullable = false)
-    private WorshipJpaEntity worship;
+    private ServiceJpaEntity service;
 
     @Column(name = "created_at", nullable = false, columnDefinition = "DATETIME(6)")
     private Instant createdAt;
@@ -62,7 +70,7 @@ public class PresenceJpaEntity {
             final String weekYear,
             final PresenceType type,
             final boolean active,
-            final WorshipJpaEntity worship,
+            final ServiceJpaEntity service,
             final Instant createdAt,
             final Instant updatedAt,
             final Instant deletedAt
@@ -75,7 +83,7 @@ public class PresenceJpaEntity {
         this.weekYear = weekYear;
         this.type = type;
         this.active = active;
-        this.worship = worship;
+        this.service = service;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
@@ -91,7 +99,7 @@ public class PresenceJpaEntity {
                 presence.getWeekYear(),
                 presence.getType(),
                 presence.isActive(),
-                WorshipJpaEntity.from(presence.getWorship()),
+                ServiceJpaEntity.from(presence.getService()),
                 presence.getCreatedAt(),
                 presence.getUpdatedAt(),
                 presence.getDeletedAt()
@@ -107,7 +115,7 @@ public class PresenceJpaEntity {
                 getWeekMonth(),
                 getWeekYear(),
                 getType(),
-                getWorship().toAggregate(),
+                getService().toAggregate(),
                 isActive(),
                 getCreatedAt(),
                 getUpdatedAt(),
@@ -187,12 +195,12 @@ public class PresenceJpaEntity {
         return this;
     }
 
-    public WorshipJpaEntity getWorship() {
-        return worship;
+    public ServiceJpaEntity getService() {
+        return service;
     }
 
-    public PresenceJpaEntity setWorship(WorshipJpaEntity worship) {
-        this.worship = worship;
+    public PresenceJpaEntity setService(ServiceJpaEntity worship) {
+        this.service = worship;
         return this;
     }
 

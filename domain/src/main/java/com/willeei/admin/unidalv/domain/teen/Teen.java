@@ -1,16 +1,16 @@
 package com.willeei.admin.unidalv.domain.teen;
 
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import com.willeei.admin.unidalv.domain.AggregateRoot;
 import com.willeei.admin.unidalv.domain.exceptions.NotificationException;
 import com.willeei.admin.unidalv.domain.presence.PresenceID;
 import com.willeei.admin.unidalv.domain.utils.InstantUtils;
 import com.willeei.admin.unidalv.domain.validation.ValidationHandler;
 import com.willeei.admin.unidalv.domain.validation.handler.Notification;
-
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class Teen extends AggregateRoot<TeenID> {
 

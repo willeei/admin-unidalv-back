@@ -9,7 +9,6 @@ import com.willeei.admin.unidalv.domain.teen.TeenGateway;
 public class DefaultCreateTeenUseCase extends CreateTeenUseCase {
 
     private final TeenGateway teenGateway;
-    
 
     public DefaultCreateTeenUseCase(final TeenGateway teenGateway) {
         this.teenGateway = Objects.requireNonNull(teenGateway);

@@ -1,13 +1,12 @@
 package com.willeei.admin.unidalv.domain.exceptions;
 
+import java.io.Serial;
+import java.util.Collections;
+import java.util.List;
 
 import com.willeei.admin.unidalv.domain.AggregateRoot;
 import com.willeei.admin.unidalv.domain.Identifier;
 import com.willeei.admin.unidalv.domain.validation.Error;
-
-import java.io.Serial;
-import java.util.Collections;
-import java.util.List;
 
 public class NotFoundException extends DomainException {
 

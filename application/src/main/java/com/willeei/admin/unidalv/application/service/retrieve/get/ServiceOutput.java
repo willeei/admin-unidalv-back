@@ -1,11 +1,11 @@
 package com.willeei.admin.unidalv.application.service.retrieve.get;
 
-import com.willeei.admin.unidalv.domain.presence.PresenceID;
-import com.willeei.admin.unidalv.domain.service.Service;
-
 import java.time.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import com.willeei.admin.unidalv.domain.presence.PresenceID;
+import com.willeei.admin.unidalv.domain.service.Service;
 
 public record ServiceOutput(
         String id,
@@ -15,8 +15,7 @@ public record ServiceOutput(
         Set<String> presences,
         Instant createdAt,
         Instant updatedAt,
-        Instant deletedAt
-) {
+        Instant deletedAt) {
 
     public static ServiceOutput from(Service service) {
         return new ServiceOutput(

@@ -1,11 +1,12 @@
 package com.willeei.admin.unidalv.infrastructure;
 
-import com.willeei.admin.unidalv.infrastructure.configuration.WebServerConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.env.AbstractEnvironment;
+
+import com.willeei.admin.unidalv.infrastructure.configuration.WebServerConfig;
 
 @SpringBootApplication
 public class Main {

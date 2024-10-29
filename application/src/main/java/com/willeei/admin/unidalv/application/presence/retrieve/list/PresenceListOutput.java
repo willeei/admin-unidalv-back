@@ -1,10 +1,10 @@
 package com.willeei.admin.unidalv.application.presence.retrieve.list;
 
+import java.time.Instant;
+
 import com.willeei.admin.unidalv.domain.presence.Presence;
 import com.willeei.admin.unidalv.domain.presence.PresenceType;
 import com.willeei.admin.unidalv.domain.service.Service;
-
-import java.time.Instant;
 
 public record PresenceListOutput(
         String day,
@@ -17,8 +17,7 @@ public record PresenceListOutput(
         boolean isActive,
         Instant createdAt,
         Instant updatedAt,
-        Instant deletedAt
-) {
+        Instant deletedAt) {
 
     public static PresenceListOutput from(final Presence aPresence) {
         return new PresenceListOutput(

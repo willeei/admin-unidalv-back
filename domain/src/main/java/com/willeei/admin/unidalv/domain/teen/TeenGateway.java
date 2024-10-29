@@ -1,9 +1,9 @@
 package com.willeei.admin.unidalv.domain.teen;
 
-import com.willeei.admin.unidalv.domain.pagination.SearchQuery;
-
 import java.util.List;
 import java.util.Optional;
+
+import com.willeei.admin.unidalv.domain.pagination.SearchQuery;
 
 public interface TeenGateway {
 

@@ -1,17 +1,16 @@
 package com.willeei.admin.unidalv.application.presence.update;
 
+import java.time.LocalDate;
+
 import com.willeei.admin.unidalv.domain.presence.PresenceType;
 import com.willeei.admin.unidalv.domain.service.Service;
-
-import java.time.LocalDate;
 
 public record UpdatePresenceCommand(
         String id,
         LocalDate date,
         PresenceType type,
         Service service,
-        boolean isActive
-) {
+        boolean isActive) {
 
     public static UpdatePresenceCommand with(
             final String anId,

@@ -1,5 +1,9 @@
 package com.willeei.admin.unidalv.domain.presence;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.Objects;
+
 import com.willeei.admin.unidalv.domain.AggregateRoot;
 import com.willeei.admin.unidalv.domain.exceptions.NotificationException;
 import com.willeei.admin.unidalv.domain.service.Service;
@@ -7,10 +11,6 @@ import com.willeei.admin.unidalv.domain.utils.InstantUtils;
 import com.willeei.admin.unidalv.domain.utils.LocalDateUtils;
 import com.willeei.admin.unidalv.domain.validation.ValidationHandler;
 import com.willeei.admin.unidalv.domain.validation.handler.Notification;
-
-import java.time.Instant;
-import java.time.LocalDate;
-import java.util.Objects;
 
 public class Presence extends AggregateRoot<PresenceID> {
 
@@ -196,7 +196,7 @@ public class Presence extends AggregateRoot<PresenceID> {
         return type;
     }
 
-    public Service getWorship() {
+    public Service getService() {
         return service;
     }
 

@@ -24,7 +24,7 @@ class PresenceTest extends UnitTest {
         final var expectedYear = date.year();
 
         final var expectedType = Fixture.Presence.type();
-        final var expectedWorship = Fixture.worship();
+        final var expectedWorship = Fixture.service();
         final var expectedValid = true;
 
         // when
@@ -51,7 +51,7 @@ class PresenceTest extends UnitTest {
     void givenAnInvalidNullType_whenCallNewPresence_thenShouldReceiveANotification() {
         // given
         final var localDate = LocalDate.now();
-        final var expectedWorship = Fixture.worship();
+        final var expectedWorship = Fixture.service();
         final var expectedValid = true;
 
         final var expectedErrorCount = 1;
@@ -72,7 +72,7 @@ class PresenceTest extends UnitTest {
     void givenAnInvalidNullDate_whenCallNewPresenceAndValidade_thenShouldReceiveError() {
         Assertions.assertThrows(
                 NullPointerException.class,
-                () -> Presence.newPresence(null, Fixture.Presence.type(), Fixture.worship(), Fixture.bool())
+                () -> Presence.newPresence(null, Fixture.Presence.type(), Fixture.service(), Fixture.bool())
         );
     }
 }

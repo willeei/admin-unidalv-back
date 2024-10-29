@@ -1,9 +1,9 @@
 package com.willeei.admin.unidalv.domain.teen;
 
+import java.util.Objects;
+
 import com.willeei.admin.unidalv.domain.Identifier;
 import com.willeei.admin.unidalv.domain.utils.IdUtils;
-
-import java.util.Objects;
 
 public class TeenID extends Identifier {
 
@@ -28,8 +28,12 @@ public class TeenID extends Identifier {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         final TeenID teenID = (TeenID) o;
         return getValue().equals(teenID.getValue());

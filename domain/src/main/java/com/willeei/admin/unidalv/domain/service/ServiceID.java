@@ -1,9 +1,9 @@
 package com.willeei.admin.unidalv.domain.service;
 
+import java.util.Objects;
+
 import com.willeei.admin.unidalv.domain.Identifier;
 import com.willeei.admin.unidalv.domain.utils.IdUtils;
-
-import java.util.Objects;
 
 public class ServiceID extends Identifier {
 
@@ -28,8 +28,12 @@ public class ServiceID extends Identifier {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         final ServiceID serviceID = (ServiceID) o;
         return getValue().equals(serviceID.getValue());

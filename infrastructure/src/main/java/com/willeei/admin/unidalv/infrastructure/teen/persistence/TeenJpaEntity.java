@@ -3,6 +3,7 @@ package com.willeei.admin.unidalv.infrastructure.teen.persistence;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,8 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.willeei.admin.unidalv.domain.presence.PresenceID;
 import com.willeei.admin.unidalv.domain.teen.Gender;
 import com.willeei.admin.unidalv.domain.teen.Teen;
+import com.willeei.admin.unidalv.domain.teen.TeenID;
 import com.willeei.admin.unidalv.infrastructure.presence.persistence.PresenceJpaEntity;
 
 @Entity(name = "Teen")
@@ -130,8 +133,26 @@ public class TeenJpaEntity {
     }
 
     public Teen toAggregate() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'toAggregate'");
+        return Teen.with(
+                TeenID.from(getId()),
+                getName(),
+                getBirthDate(),
+                getMember(),
+                getActive(),
+                getDiscipleship(),
+                getPhone(),
+                getGuardianPhone(),
+                getGuardianName(),
+                getEnrollmentDate(),
+                getReEnrollmentDate(),
+                getGender(),
+                getPresences().stream()
+                        .map(it -> PresenceID.from(it.getId()))
+                        .collect(Collectors.toSet()),
+                getCreatedAt(),
+                getUpdatedAt(),
+                getDeletedAt()
+        );
     }
 
     public String getId() {

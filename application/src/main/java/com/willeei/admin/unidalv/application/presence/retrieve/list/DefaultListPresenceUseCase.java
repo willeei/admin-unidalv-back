@@ -6,11 +6,11 @@ import com.willeei.admin.unidalv.domain.pagination.Pagination;
 import com.willeei.admin.unidalv.domain.pagination.SearchQuery;
 import com.willeei.admin.unidalv.domain.presence.PresenceGateway;
 
-public final class DefaultListPresenceByIdUseCase extends ListPresenceUseCase {
+public final class DefaultListPresenceUseCase extends ListPresenceUseCase {
 
     private final PresenceGateway presenceGateway;
 
-    public DefaultListPresenceByIdUseCase(final PresenceGateway presenceGateway) {
+    public DefaultListPresenceUseCase(final PresenceGateway presenceGateway) {
         this.presenceGateway = Objects.requireNonNull(presenceGateway);
     }
 

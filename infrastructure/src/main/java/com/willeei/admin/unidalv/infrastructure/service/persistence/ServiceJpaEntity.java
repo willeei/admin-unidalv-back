@@ -3,6 +3,7 @@ package com.willeei.admin.unidalv.infrastructure.service.persistence;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,7 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.willeei.admin.unidalv.domain.presence.PresenceID;
 import com.willeei.admin.unidalv.domain.service.Service;
+import com.willeei.admin.unidalv.domain.service.ServiceID;
 import com.willeei.admin.unidalv.infrastructure.presence.persistence.PresenceJpaEntity;
 
 @Entity(name = "Service")
@@ -81,7 +84,18 @@ public class ServiceJpaEntity {
     }
 
     public Service toAggregate() {
-        return null;
+        return Service.with(
+                ServiceID.from(getId()),
+                getName(),
+                getPoint(),
+                isActive(),
+                getPresences().stream()
+                        .map(it -> PresenceID.from(it.getId()))
+                        .collect(Collectors.toSet()),
+                getCreatedAt(),
+                getUpdatedAt(),
+                getDeletedAt()
+        );
     }
 
     public String getId() {

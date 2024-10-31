@@ -1,4 +1,4 @@
-package com.willeei.unidalv.domain;
+package com.willeei.admin.unidalv.domain;
 
 import java.io.Serial;
 import java.time.Instant;
@@ -9,8 +9,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import com.willeei.admin.unidalv.domain.Entity;
-import com.willeei.admin.unidalv.domain.Identifier;
 import com.willeei.admin.unidalv.domain.event.DomainEvent;
 import com.willeei.admin.unidalv.domain.utils.IdUtils;
 import com.willeei.admin.unidalv.domain.utils.InstantUtils;

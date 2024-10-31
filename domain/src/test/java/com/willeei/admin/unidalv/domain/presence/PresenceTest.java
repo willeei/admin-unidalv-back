@@ -1,15 +1,15 @@
-package com.willeei.unidalv.domain.presence;
+package com.willeei.admin.unidalv.domain.presence;
 
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.willeei.admin.unidalv.domain.Fixture;
+import com.willeei.admin.unidalv.domain.UnitTest;
 import com.willeei.admin.unidalv.domain.exceptions.NotificationException;
 import com.willeei.admin.unidalv.domain.presence.Presence;
 import com.willeei.admin.unidalv.domain.utils.LocalDateUtils;
-import com.willeei.unidalv.domain.Fixture;
-import com.willeei.unidalv.domain.UnitTest;
 
 class PresenceTest extends UnitTest {
 

@@ -22,6 +22,23 @@ CREATE TABLE services (
     active BOOLEAN NOT NULL,
     created_at DATETIME(6) NOT NULL,
     updated_at DATETIME(6) NOT NULL,
-    deleted_at DATETIME(6) NOT NULL,
+    deleted_at DATETIME(6) NULL,
     PRIMARY KEY (id)
+);
+CREATE TABLE teens (
+    id CHAR(32) NOT NULL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    birth_date VARCHAR(12) NOT NULL,
+    member BOOLEAN NOT NULL,
+    active BOOLEAN NOT NULL,
+    discipleship BOOLEAN NOT NULL,
+    phone VARCHAR(12) NOT NULL,
+    guardian_phone VARCHAR(12) NOT NULL,
+    guardian_name VARCHAR(255) NOT NULL,
+    gender VARCHAR(7) NOT NULL,
+    enrollment_date DATETIME(6) NOT NULL,
+    re_enrollment_date DATETIME(6) NOT NULL,
+    created_at DATETIME(6) NOT NULL,
+    updated_at DATETIME(6) NOT NULL,
+    deleted_at DATETIME(6) NULL
 );

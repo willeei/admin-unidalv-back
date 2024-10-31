@@ -7,15 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.willeei.admin.unidalv.domain.presence.Presence;
 import com.willeei.admin.unidalv.domain.presence.PresenceID;
 import com.willeei.admin.unidalv.domain.presence.PresenceType;
-import com.willeei.admin.unidalv.infrastructure.service.persistence.ServiceJpaEntity;
-import com.willeei.admin.unidalv.infrastructure.teen.persistence.TeenJpaEntity;
 
 @Entity(name = "Presence")
 @Table(name = "presences")
@@ -47,14 +43,6 @@ public class PresenceJpaEntity {
     @Column(name = "active", nullable = false)
     private boolean active;
 
-    @ManyToOne
-    @JoinColumn(name = "service_id", nullable = false)
-    private ServiceJpaEntity service;
-
-    @ManyToOne
-    @JoinColumn(name = "teen_id", nullable = false)
-    private TeenJpaEntity teen;
-
     @Column(name = "created_at", nullable = false, columnDefinition = "DATETIME(6)")
     private Instant createdAt;
 
@@ -76,8 +64,6 @@ public class PresenceJpaEntity {
             final String weekYear,
             final PresenceType type,
             final boolean active,
-            final ServiceJpaEntity service,
-            final TeenJpaEntity teen,
             final Instant createdAt,
             final Instant updatedAt,
             final Instant deletedAt
@@ -90,8 +76,6 @@ public class PresenceJpaEntity {
         this.weekYear = weekYear;
         this.type = type;
         this.active = active;
-        this.service = service;
-        this.teen = teen;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
@@ -107,8 +91,6 @@ public class PresenceJpaEntity {
                 presence.getWeekYear(),
                 presence.getType(),
                 presence.isActive(),
-                ServiceJpaEntity.from(presence.getService()),
-                TeenJpaEntity.from(presence.getTeen()),
                 presence.getCreatedAt(),
                 presence.getUpdatedAt(),
                 presence.getDeletedAt()
@@ -124,8 +106,6 @@ public class PresenceJpaEntity {
                 getWeekMonth(),
                 getWeekYear(),
                 getType(),
-                getService().toAggregate(),
-                getTeen().toAggregate(),
                 isActive(),
                 getCreatedAt(),
                 getUpdatedAt(),
@@ -202,24 +182,6 @@ public class PresenceJpaEntity {
 
     public PresenceJpaEntity setActive(boolean active) {
         this.active = active;
-        return this;
-    }
-
-    public ServiceJpaEntity getService() {
-        return service;
-    }
-
-    public PresenceJpaEntity setService(ServiceJpaEntity worship) {
-        this.service = worship;
-        return this;
-    }
-
-    public TeenJpaEntity getTeen() {
-        return teen;
-    }
-
-    public PresenceJpaEntity setTeen(TeenJpaEntity teen) {
-        this.teen = teen;
         return this;
     }
 

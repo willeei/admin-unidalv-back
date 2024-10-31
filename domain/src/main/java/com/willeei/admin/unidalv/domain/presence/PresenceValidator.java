@@ -16,20 +16,12 @@ public class PresenceValidator extends Validator {
     @Override
     public void validate() {
         checkPresenceTypeConstraints();
-        checkServiceConstraints();
     }
 
     private void checkPresenceTypeConstraints() {
         final var type = this.presence.getType();
         if (type == null) {
             this.validationHandler().append(new Error("'type' should not be null"));
-        }
-    }
-
-    private void checkServiceConstraints() {
-        final var worship = this.presence.getService();
-        if (worship == null) {
-            this.validationHandler().append(new Error("'worship' should not be null"));
         }
     }
 }

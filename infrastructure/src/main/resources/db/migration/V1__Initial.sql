@@ -13,5 +13,15 @@ CREATE TABLE presences (
     updated_at DATETIME(6) NOT NULL,
     deleted_at DATETIME(6) NULL,
     CONSTRAINT fk_teen_id FOREIGN KEY (teen_id) REFERENCES teens (id) ON DELETE CASCADE,
-    CONSTRAINT fk_service_id FOREIGN KEY (worship_id) REFERENCES services (id) ON DELETE CASCADE
+    CONSTRAINT fk_service_id FOREIGN KEY (service_id) REFERENCES services (id) ON DELETE CASCADE
+);
+CREATE TABLE services (
+    id CHAR(32) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    point INT NOT NULL,
+    active BOOLEAN NOT NULL,
+    created_at DATETIME(6) NOT NULL,
+    updated_at DATETIME(6) NOT NULL,
+    deleted_at DATETIME(6) NOT NULL,
+    PRIMARY KEY (id)
 );

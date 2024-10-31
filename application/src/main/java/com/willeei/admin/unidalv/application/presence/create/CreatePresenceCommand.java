@@ -3,23 +3,17 @@ package com.willeei.admin.unidalv.application.presence.create;
 import java.time.LocalDate;
 
 import com.willeei.admin.unidalv.domain.presence.PresenceType;
-import com.willeei.admin.unidalv.domain.service.Service;
-import com.willeei.admin.unidalv.domain.teen.Teen;
 
 public record CreatePresenceCommand(
         LocalDate date,
         PresenceType type,
-        Service service,
-        Teen teen,
         boolean isActive) {
 
     public static CreatePresenceCommand with(
             final LocalDate aDate,
             final PresenceType aType,
-            final Service aService,
-            final Teen aTeen,
             final boolean aIsActive
     ) {
-        return new CreatePresenceCommand(aDate, aType, aService, aTeen, aIsActive);
+        return new CreatePresenceCommand(aDate, aType, aIsActive);
     }
 }

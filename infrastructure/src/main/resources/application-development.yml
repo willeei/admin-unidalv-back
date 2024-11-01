@@ -1,6 +1,6 @@
 mysql:
   username: root
-  password: 9655
+  password: 123456
   schema: adm_unidalv
   url: localhost:3306
 

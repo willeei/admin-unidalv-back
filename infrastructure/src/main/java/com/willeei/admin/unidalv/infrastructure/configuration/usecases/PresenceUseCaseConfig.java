@@ -14,19 +14,29 @@ import com.willeei.admin.unidalv.application.presence.retrieve.list.ListPresence
 import com.willeei.admin.unidalv.application.presence.update.DefaultUpdatePresenceUseCase;
 import com.willeei.admin.unidalv.application.presence.update.UpdatePresenceUseCase;
 import com.willeei.admin.unidalv.domain.presence.PresenceGateway;
+import com.willeei.admin.unidalv.domain.service.ServiceGateway;
+import com.willeei.admin.unidalv.domain.teen.TeenGateway;
 
 @Configuration
 public class PresenceUseCaseConfig {
 
     private final PresenceGateway presenceGateway;
+    private final ServiceGateway serviceGateway;
+    private final TeenGateway teenGateway;
 
-    public PresenceUseCaseConfig(final PresenceGateway presenceGateway) {
+    public PresenceUseCaseConfig(
+            final PresenceGateway presenceGateway,
+            final ServiceGateway serviceGateway,
+            final TeenGateway teenGateway
+    ) {
         this.presenceGateway = presenceGateway;
+        this.serviceGateway = serviceGateway;
+        this.teenGateway = teenGateway;
     }
 
     @Bean
     public CreatePresenceUseCase createPresenceUseCase() {
-        return new DefaultCreatePresenceUseCase(presenceGateway);
+        return new DefaultCreatePresenceUseCase(presenceGateway, serviceGateway, teenGateway);
     }
 
     @Bean

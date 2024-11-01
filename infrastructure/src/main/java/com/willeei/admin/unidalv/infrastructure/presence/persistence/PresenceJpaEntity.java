@@ -1,17 +1,21 @@
 package com.willeei.admin.unidalv.infrastructure.presence.persistence;
 
 import java.time.Instant;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.willeei.admin.unidalv.domain.presence.Presence;
 import com.willeei.admin.unidalv.domain.presence.PresenceID;
 import com.willeei.admin.unidalv.domain.presence.PresenceType;
+import com.willeei.admin.unidalv.infrastructure.service.persistence.ServiceJpaEntity;
+import com.willeei.admin.unidalv.infrastructure.teen.persistence.TeenJpaEntity;
 
 @Entity(name = "Presence")
 @Table(name = "presences")
@@ -52,6 +56,12 @@ public class PresenceJpaEntity {
     @Column(name = "deleted_at", columnDefinition = "DATETIME(6)")
     private Instant deletedAt;
 
+    @ManyToOne
+    private ServiceJpaEntity service;
+
+    @ManyToOne
+    private TeenJpaEntity teen;
+
     public PresenceJpaEntity() {
     }
 
@@ -82,7 +92,7 @@ public class PresenceJpaEntity {
     }
 
     public static PresenceJpaEntity from(final Presence presence) {
-        return new PresenceJpaEntity(
+        final var entity = new PresenceJpaEntity(
                 presence.getId().getValue(),
                 presence.getDay(),
                 presence.getMonth(),
@@ -95,6 +105,11 @@ public class PresenceJpaEntity {
                 presence.getUpdatedAt(),
                 presence.getDeletedAt()
         );
+
+        entity.setService(ServiceJpaEntity.from(presence.getService(), Set.of(entity)));
+        entity.setTeen(TeenJpaEntity.from(presence.getTeen(), Set.of(entity)));
+
+        return entity;
     }
 
     public Presence toAggregate() {
@@ -106,6 +121,8 @@ public class PresenceJpaEntity {
                 getWeekMonth(),
                 getWeekYear(),
                 getType(),
+                getService().toAggregate(),
+                getTeen().toAggregate(),
                 isActive(),
                 getCreatedAt(),
                 getUpdatedAt(),
@@ -209,6 +226,24 @@ public class PresenceJpaEntity {
 
     public PresenceJpaEntity setDeletedAt(Instant deletedAt) {
         this.deletedAt = deletedAt;
+        return this;
+    }
+
+    public ServiceJpaEntity getService() {
+        return service;
+    }
+
+    public PresenceJpaEntity setService(ServiceJpaEntity service) {
+        this.service = service;
+        return this;
+    }
+
+    public TeenJpaEntity getTeen() {
+        return teen;
+    }
+
+    public PresenceJpaEntity setTeen(TeenJpaEntity teen) {
+        this.teen = teen;
         return this;
     }
 }

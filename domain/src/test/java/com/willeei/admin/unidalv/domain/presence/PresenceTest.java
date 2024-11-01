@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import com.willeei.admin.unidalv.domain.Fixture;
 import com.willeei.admin.unidalv.domain.UnitTest;
 import com.willeei.admin.unidalv.domain.exceptions.NotificationException;
-import com.willeei.admin.unidalv.domain.presence.Presence;
 import com.willeei.admin.unidalv.domain.utils.LocalDateUtils;
 
 class PresenceTest extends UnitTest {
@@ -27,8 +26,10 @@ class PresenceTest extends UnitTest {
         final var expectedType = Fixture.Presence.type();
         final var expectedValid = true;
 
+        final var expectedService = Fixture.service();
+
         // when
-        final var actualPresence = Presence.newPresence(localDate, expectedType, expectedValid);
+        final var actualPresence = Presence.newPresence(localDate, expectedType, expectedService, null, expectedValid);
 
         // then
         Assertions.assertNotNull(actualPresence);
@@ -51,6 +52,7 @@ class PresenceTest extends UnitTest {
         // given
         final var localDate = LocalDate.now();
         final var expectedValid = true;
+        final var expectedService = Fixture.service();
 
         final var expectedErrorCount = 1;
         final var expectedErrorMessage = "'type' should not be null";
@@ -58,7 +60,7 @@ class PresenceTest extends UnitTest {
         // when
         final var actualException = Assertions.assertThrows(
                 NotificationException.class,
-                () -> Presence.newPresence(localDate, null, expectedValid)
+                () -> Presence.newPresence(localDate, null, expectedService, null, expectedValid)
         );
 
         // then
@@ -70,7 +72,7 @@ class PresenceTest extends UnitTest {
     void givenAnInvalidNullDate_whenCallNewPresenceAndValidade_thenShouldReceiveError() {
         Assertions.assertThrows(
                 NullPointerException.class,
-                () -> Presence.newPresence(null, Fixture.Presence.type(), Fixture.bool())
+                () -> Presence.newPresence(null, Fixture.Presence.type(), null, null, Fixture.bool())
         );
     }
 }

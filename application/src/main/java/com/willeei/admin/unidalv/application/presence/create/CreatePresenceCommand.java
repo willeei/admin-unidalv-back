@@ -7,13 +7,17 @@ import com.willeei.admin.unidalv.domain.presence.PresenceType;
 public record CreatePresenceCommand(
         LocalDate date,
         PresenceType type,
-        boolean isActive) {
+        boolean isActive,
+        String serviceId,
+        String teenId) {
 
     public static CreatePresenceCommand with(
             final LocalDate aDate,
             final PresenceType aType,
-            final boolean aIsActive
+            final String aServiceId,
+            final String aTeenId,
+            final boolean isActive
     ) {
-        return new CreatePresenceCommand(aDate, aType, aIsActive);
+        return new CreatePresenceCommand(aDate, aType, isActive, aServiceId, aTeenId);
     }
 }

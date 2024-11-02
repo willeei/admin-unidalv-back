@@ -1,4 +1,4 @@
-package com.willeei.unidalv.domain;
+package com.willeei.admin.unidalv.domain;
 
 import org.junit.jupiter.api.Tag;
 

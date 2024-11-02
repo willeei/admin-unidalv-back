@@ -1,14 +1,14 @@
-package com.willeei.unidalv.domain.presence;
+package com.willeei.admin.unidalv.domain.presence;
 
-import com.willeei.admin.unidalv.domain.presence.Presence;
-import com.willeei.unidalv.domain.Fixture;
-import com.willeei.unidalv.domain.UnitTest;
-import com.willeei.admin.unidalv.domain.exceptions.NotificationException;
-import com.willeei.admin.unidalv.domain.utils.LocalDateUtils;
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
+import com.willeei.admin.unidalv.domain.Fixture;
+import com.willeei.admin.unidalv.domain.UnitTest;
+import com.willeei.admin.unidalv.domain.exceptions.NotificationException;
+import com.willeei.admin.unidalv.domain.utils.LocalDateUtils;
 
 class PresenceTest extends UnitTest {
 
@@ -24,11 +24,13 @@ class PresenceTest extends UnitTest {
         final var expectedYear = date.year();
 
         final var expectedType = Fixture.Presence.type();
-        final var expectedWorship = Fixture.service();
         final var expectedValid = true;
 
+        final var expectedService = Fixture.service();
+
         // when
-        final var actualPresence = Presence.newPresence(localDate, expectedType, expectedWorship, expectedValid);
+        final var actualPresence
+                = Presence.newPresence(localDate, expectedType, expectedService, null, expectedValid);
 
         // then
         Assertions.assertNotNull(actualPresence);
@@ -39,7 +41,6 @@ class PresenceTest extends UnitTest {
         Assertions.assertEquals(expectedMonth, actualPresence.getMonth());
         Assertions.assertEquals(expectedYear, actualPresence.getYear());
         Assertions.assertEquals(expectedType, actualPresence.getType());
-        Assertions.assertEquals(expectedWorship, actualPresence.getWorship());
         Assertions.assertEquals(expectedValid, actualPresence.isActive());
         Assertions.assertNotNull(actualPresence.getCreatedAt());
         Assertions.assertNotNull(actualPresence.getUpdatedAt());
@@ -51,8 +52,8 @@ class PresenceTest extends UnitTest {
     void givenAnInvalidNullType_whenCallNewPresence_thenShouldReceiveANotification() {
         // given
         final var localDate = LocalDate.now();
-        final var expectedWorship = Fixture.service();
         final var expectedValid = true;
+        final var expectedService = Fixture.service();
 
         final var expectedErrorCount = 1;
         final var expectedErrorMessage = "'type' should not be null";
@@ -60,7 +61,7 @@ class PresenceTest extends UnitTest {
         // when
         final var actualException = Assertions.assertThrows(
                 NotificationException.class,
-                () -> Presence.newPresence(localDate, null, expectedWorship, expectedValid)
+                () -> Presence.newPresence(localDate, null, expectedService, null, expectedValid)
         );
 
         // then
@@ -70,9 +71,15 @@ class PresenceTest extends UnitTest {
 
     @Test
     void givenAnInvalidNullDate_whenCallNewPresenceAndValidade_thenShouldReceiveError() {
-        Assertions.assertThrows(
-                NullPointerException.class,
-                () -> Presence.newPresence(null, Fixture.Presence.type(), Fixture.service(), Fixture.bool())
+        // given
+        final var expectedException = new NullPointerException("date should not be null");
+        final var actualException = Assertions.assertThrows(
+                expectedException.getClass(),
+                () -> Presence.newPresence(
+                        null, Fixture.Presence.type(), null, null, Fixture.bool()
+                )
         );
+
+        Assertions.assertEquals("'date' should not be null", actualException.getMessage());
     }
 }

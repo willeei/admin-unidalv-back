@@ -6,6 +6,6 @@ import com.willeei.admin.unidalv.domain.pagination.SearchQuery;
 
 public abstract sealed class ListPresenceUseCase
         extends UseCase<SearchQuery, Pagination<PresenceListOutput>>
-        permits DefaultListPresenceByIdUseCase {
+        permits DefaultListPresenceUseCase {
 
 }

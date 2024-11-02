@@ -24,14 +24,13 @@ public non-sealed class DefaultUpdatePresenceUseCase extends UpdatePresenceUseCa
         final var anId = PresenceID.from(aCmd.id());
         final var aDate = aCmd.date();
         final var aType = aCmd.type();
-        final var aWorship = aCmd.service();
         final var isActive = aCmd.isActive();
 
         final var aPresence = this.presenceGateway.findById(anId)
                 .orElseThrow(notFound(anId));
 
         final var notification = Notification.create();
-        notification.validate(() -> aPresence.update(aDate, aType, aWorship, isActive));
+        notification.validate(() -> aPresence.update(aDate, aType, isActive));
 
         if (notification.hasError()) {
             notify(anId, notification);
@@ -41,7 +40,8 @@ public non-sealed class DefaultUpdatePresenceUseCase extends UpdatePresenceUseCa
     }
 
     private void notify(final Identifier anId, final Notification notification) {
-        throw new NotificationException("Could not update Aggregate CastMember %s".formatted(anId.getValue()), notification);
+        throw new NotificationException(
+                "Could not update Aggregate Presence %s".formatted(anId.getValue()), notification);
     }
 
     private Supplier<NotFoundException> notFound(final PresenceID anId) {

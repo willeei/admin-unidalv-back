@@ -1,4 +1,4 @@
-package com.willeei.unidalv.domain;
+package com.willeei.admin.unidalv.domain;
 
 import com.willeei.admin.unidalv.domain.presence.PresenceType;
 import com.willeei.admin.unidalv.domain.service.Service;

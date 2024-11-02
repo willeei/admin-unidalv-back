@@ -18,5 +18,5 @@ public interface PresenceGateway {
 
     Optional<Presence> findById(PresenceID anId);
 
-    Presence update(Presence aTeen);
+    Presence update(Presence aPresence);
 }

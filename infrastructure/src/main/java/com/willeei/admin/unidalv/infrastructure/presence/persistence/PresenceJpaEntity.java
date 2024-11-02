@@ -1,19 +1,21 @@
-package com.willeei.admin.unidalv.infrastructure.configuration.presence.persistence;
+package com.willeei.admin.unidalv.infrastructure.presence.persistence;
 
 import java.time.Instant;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.willeei.admin.unidalv.domain.presence.Presence;
 import com.willeei.admin.unidalv.domain.presence.PresenceID;
 import com.willeei.admin.unidalv.domain.presence.PresenceType;
+import com.willeei.admin.unidalv.infrastructure.service.persistence.ServiceJpaEntity;
+import com.willeei.admin.unidalv.infrastructure.teen.persistence.TeenJpaEntity;
 
 @Entity(name = "Presence")
 @Table(name = "presences")
@@ -45,10 +47,6 @@ public class PresenceJpaEntity {
     @Column(name = "active", nullable = false)
     private boolean active;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "worship_id", nullable = false)
-    private ServiceJpaEntity service;
-
     @Column(name = "created_at", nullable = false, columnDefinition = "DATETIME(6)")
     private Instant createdAt;
 
@@ -57,6 +55,12 @@ public class PresenceJpaEntity {
 
     @Column(name = "deleted_at", columnDefinition = "DATETIME(6)")
     private Instant deletedAt;
+
+    @ManyToOne
+    private ServiceJpaEntity service;
+
+    @ManyToOne
+    private TeenJpaEntity teen;
 
     public PresenceJpaEntity() {
     }
@@ -70,7 +74,6 @@ public class PresenceJpaEntity {
             final String weekYear,
             final PresenceType type,
             final boolean active,
-            final ServiceJpaEntity service,
             final Instant createdAt,
             final Instant updatedAt,
             final Instant deletedAt
@@ -83,39 +86,43 @@ public class PresenceJpaEntity {
         this.weekYear = weekYear;
         this.type = type;
         this.active = active;
-        this.service = service;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
     }
 
     public static PresenceJpaEntity from(final Presence presence) {
-        return new PresenceJpaEntity(
+        final var entity = new PresenceJpaEntity(
                 presence.getId().getValue(),
                 presence.getDay(),
                 presence.getMonth(),
                 presence.getYear(),
-                presence.getMonth(),
+                presence.getWeekMonth(),
                 presence.getWeekYear(),
                 presence.getType(),
                 presence.isActive(),
-                ServiceJpaEntity.from(presence.getService()),
                 presence.getCreatedAt(),
                 presence.getUpdatedAt(),
                 presence.getDeletedAt()
         );
+
+        entity.setService(ServiceJpaEntity.from(presence.getService(), Set.of(entity)));
+        entity.setTeen(TeenJpaEntity.from(presence.getTeen(), Set.of(entity)));
+
+        return entity;
     }
 
     public Presence toAggregate() {
         return Presence.with(
                 PresenceID.from(getId()),
                 getDay(),
+                getWeekYear(),
+                getWeekMonth(),
                 getMonth(),
                 getYear(),
-                getWeekMonth(),
-                getWeekYear(),
                 getType(),
                 getService().toAggregate(),
+                getTeen().toAggregate(),
                 isActive(),
                 getCreatedAt(),
                 getUpdatedAt(),
@@ -195,15 +202,6 @@ public class PresenceJpaEntity {
         return this;
     }
 
-    public ServiceJpaEntity getService() {
-        return service;
-    }
-
-    public PresenceJpaEntity setService(ServiceJpaEntity worship) {
-        this.service = worship;
-        return this;
-    }
-
     public Instant getCreatedAt() {
         return createdAt;
     }
@@ -228,6 +226,24 @@ public class PresenceJpaEntity {
 
     public PresenceJpaEntity setDeletedAt(Instant deletedAt) {
         this.deletedAt = deletedAt;
+        return this;
+    }
+
+    public ServiceJpaEntity getService() {
+        return service;
+    }
+
+    public PresenceJpaEntity setService(ServiceJpaEntity service) {
+        this.service = service;
+        return this;
+    }
+
+    public TeenJpaEntity getTeen() {
+        return teen;
+    }
+
+    public PresenceJpaEntity setTeen(TeenJpaEntity teen) {
+        this.teen = teen;
         return this;
     }
 }

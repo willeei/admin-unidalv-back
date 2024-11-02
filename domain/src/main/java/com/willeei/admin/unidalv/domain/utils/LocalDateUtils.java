@@ -37,6 +37,10 @@ public final class LocalDateUtils {
         return new LocalDateUtils(day, weekYear, weekMonth, month, year);
     }
 
+    public static LocalDate toLocalDate(final String day, final String month, final String year) {
+        return LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
+    }
+
     public String day() {
         return day;
     }

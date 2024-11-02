@@ -29,7 +29,8 @@ class PresenceTest extends UnitTest {
         final var expectedService = Fixture.service();
 
         // when
-        final var actualPresence = Presence.newPresence(localDate, expectedType, expectedService, null, expectedValid);
+        final var actualPresence
+                = Presence.newPresence(localDate, expectedType, expectedService, null, expectedValid);
 
         // then
         Assertions.assertNotNull(actualPresence);
@@ -70,9 +71,15 @@ class PresenceTest extends UnitTest {
 
     @Test
     void givenAnInvalidNullDate_whenCallNewPresenceAndValidade_thenShouldReceiveError() {
-        Assertions.assertThrows(
-                NullPointerException.class,
-                () -> Presence.newPresence(null, Fixture.Presence.type(), null, null, Fixture.bool())
+        // given
+        final var expectedException = new NullPointerException("date should not be null");
+        final var actualException = Assertions.assertThrows(
+                expectedException.getClass(),
+                () -> Presence.newPresence(
+                        null, Fixture.Presence.type(), null, null, Fixture.bool()
+                )
         );
+
+        Assertions.assertEquals("'date' should not be null", actualException.getMessage());
     }
 }

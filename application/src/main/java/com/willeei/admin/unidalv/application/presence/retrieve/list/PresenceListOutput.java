@@ -4,6 +4,7 @@ import java.time.Instant;
 
 import com.willeei.admin.unidalv.domain.presence.Presence;
 import com.willeei.admin.unidalv.domain.presence.PresenceType;
+import com.willeei.admin.unidalv.domain.teen.Teen;
 
 public record PresenceListOutput(
         String id,
@@ -13,6 +14,7 @@ public record PresenceListOutput(
         String month,
         String year,
         PresenceType type,
+        Teen teen,
         boolean isActive,
         Instant createdAt,
         Instant updatedAt,
@@ -27,6 +29,7 @@ public record PresenceListOutput(
                 aPresence.getMonth(),
                 aPresence.getYear(),
                 aPresence.getType(),
+                aPresence.getTeen(),
                 aPresence.isActive(),
                 aPresence.getCreatedAt(),
                 aPresence.getUpdatedAt(),

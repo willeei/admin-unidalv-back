@@ -17,6 +17,8 @@ public interface PresencePresenter {
                 output.month(),
                 output.year(),
                 output.type().name(),
+                output.service().getId().getValue(),
+                output.teen().getId().getValue(),
                 output.isActive(),
                 output.createdAt(),
                 output.updatedAt(),
@@ -30,6 +32,7 @@ public interface PresencePresenter {
                 LocalDateUtils.toLocalDate(output.day(), output.month(), output.year()),
                 output.type().name(),
                 output.isActive(),
+                output.teen().getId().getValue(),
                 output.createdAt().toString(),
                 output.updatedAt().toString()
         );

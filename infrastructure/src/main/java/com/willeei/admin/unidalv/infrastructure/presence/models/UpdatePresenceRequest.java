@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.willeei.admin.unidalv.domain.presence.PresenceType;
 
 public record UpdatePresenceRequest(
-        @JsonProperty("id") String id,
         @JsonProperty("date") LocalDate date,
         @JsonProperty("type") PresenceType type,
         @JsonProperty("is_active") Boolean active

@@ -15,16 +15,16 @@ import com.willeei.admin.unidalv.domain.validation.handler.Notification;
 
 public class Presence extends AggregateRoot<PresenceID> {
 
-    private final Instant createdAt;
     private String day;
     private String weekYear;
     private String weekMonth;
     private String month;
     private String year;
     private PresenceType type;
-    private Service service;
-    private Teen teen;
+    private final Service service;
+    private final Teen teen;
     private boolean active;
+    private final Instant createdAt;
     private Instant updatedAt;
     private Instant deletedAt;
 

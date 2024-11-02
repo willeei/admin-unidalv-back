@@ -4,6 +4,7 @@ import static com.willeei.admin.unidalv.infrastructure.utils.SpecificationUtils.
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 import javax.transaction.Transactional;
 
@@ -45,11 +46,17 @@ public class PresenceMySQLGateway implements PresenceGateway {
     }
 
     @Override
-    public List<PresenceID> existsByIds(final Iterable<PresenceID> ids) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public List<PresenceID> existsByIds(final Iterable<PresenceID> presenceIDs) {
+        final var ids = StreamSupport.stream(presenceIDs.spliterator(), false)
+                .map(PresenceID::getValue)
+                .toList();
+        return this.repository.existsByIds(ids).stream()
+                .map(PresenceID::from)
+                .toList();
     }
 
     @Override
+    @Transactional
     public Pagination<Presence> findAll(SearchQuery aQuery) {
         // Paginação
         final var page = PageRequest.of(
@@ -75,11 +82,13 @@ public class PresenceMySQLGateway implements PresenceGateway {
     }
 
     @Override
+    @Transactional
     public Optional<Presence> findById(final PresenceID anId) {
         return this.repository.findById(anId.getValue()).map(PresenceJpaEntity::toAggregate);
     }
 
     @Override
+    @Transactional
     public Presence update(final Presence aPresence) {
         return this.save(aPresence);
     }

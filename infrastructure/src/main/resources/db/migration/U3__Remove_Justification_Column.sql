@@ -1,0 +1,1 @@
+ALTER TABLE presences DROP COLUMN justification;

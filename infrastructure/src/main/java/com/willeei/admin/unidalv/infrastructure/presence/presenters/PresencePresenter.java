@@ -17,6 +17,7 @@ public interface PresencePresenter {
                 output.month(),
                 output.year(),
                 output.type().name(),
+                output.justification(),
                 output.service().getId().getValue(),
                 output.teen().getId().getValue(),
                 output.isActive(),

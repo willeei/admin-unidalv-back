@@ -16,12 +16,27 @@ public class PresenceValidator extends Validator {
     @Override
     public void validate() {
         checkPresenceTypeConstraints();
+        checkPresenceJustificationConstraints();
     }
 
     private void checkPresenceTypeConstraints() {
         final var type = this.presence.getType();
         if (type == null) {
             this.validationHandler().append(new Error("'type' should not be null"));
+        }
+    }
+
+    private void checkPresenceJustificationConstraints() {
+        final var type = this.presence.getType();
+        final var justification = this.presence.getJustification();
+
+        if (type.equals(PresenceType.JUSTIFIED) && justification == null) {
+            this.validationHandler().append(new Error("'justification' should not be null"));
+            return;
+        }
+
+        if (type.equals(PresenceType.JUSTIFIED) && justification.isBlank()) {
+            this.validationHandler().append(new Error("'justification' should not be empty"));
         }
     }
 }

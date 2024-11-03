@@ -24,13 +24,14 @@ public non-sealed class DefaultUpdatePresenceUseCase extends UpdatePresenceUseCa
         final var anId = PresenceID.from(aCmd.id());
         final var aDate = aCmd.date();
         final var aType = aCmd.type();
+        final var aJustification = aCmd.justification();
         final var isActive = aCmd.isActive();
 
         final var aPresence = this.presenceGateway.findById(anId)
                 .orElseThrow(notFound(anId));
 
         final var notification = Notification.create();
-        notification.validate(() -> aPresence.update(aDate, aType, isActive));
+        notification.validate(() -> aPresence.update(aDate, aType, aJustification, isActive));
 
         if (notification.hasError()) {
             notify(anId, notification);

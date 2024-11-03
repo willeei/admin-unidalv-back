@@ -30,7 +30,7 @@ class PresenceTest extends UnitTest {
 
         // when
         final var actualPresence
-                = Presence.newPresence(localDate, expectedType, expectedService, null, expectedValid);
+                = Presence.newPresence(localDate, expectedType, null, expectedService, null, expectedValid);
 
         // then
         Assertions.assertNotNull(actualPresence);
@@ -61,7 +61,7 @@ class PresenceTest extends UnitTest {
         // when
         final var actualException = Assertions.assertThrows(
                 NotificationException.class,
-                () -> Presence.newPresence(localDate, null, expectedService, null, expectedValid)
+                () -> Presence.newPresence(localDate, null, null, expectedService, null, expectedValid)
         );
 
         // then
@@ -76,7 +76,7 @@ class PresenceTest extends UnitTest {
         final var actualException = Assertions.assertThrows(
                 expectedException.getClass(),
                 () -> Presence.newPresence(
-                        null, Fixture.Presence.type(), null, null, Fixture.bool()
+                        null, Fixture.Presence.type(), null, null, null, Fixture.bool()
                 )
         );
 

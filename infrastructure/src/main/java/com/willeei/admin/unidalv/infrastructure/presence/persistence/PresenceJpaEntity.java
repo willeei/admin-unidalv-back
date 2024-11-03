@@ -44,6 +44,9 @@ public class PresenceJpaEntity {
     @Enumerated(EnumType.STRING)
     private PresenceType type;
 
+    @Column(name = "justification")
+    private String justification;
+
     @Column(name = "active", nullable = false)
     private boolean active;
 
@@ -73,6 +76,7 @@ public class PresenceJpaEntity {
             final String weekMonth,
             final String weekYear,
             final PresenceType type,
+            final String justification,
             final boolean active,
             final Instant createdAt,
             final Instant updatedAt,
@@ -85,6 +89,7 @@ public class PresenceJpaEntity {
         this.weekMonth = weekMonth;
         this.weekYear = weekYear;
         this.type = type;
+        this.justification = justification;
         this.active = active;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -100,6 +105,7 @@ public class PresenceJpaEntity {
                 presence.getWeekMonth(),
                 presence.getWeekYear(),
                 presence.getType(),
+                presence.getJustification(),
                 presence.isActive(),
                 presence.getCreatedAt(),
                 presence.getUpdatedAt(),
@@ -121,6 +127,7 @@ public class PresenceJpaEntity {
                 getMonth(),
                 getYear(),
                 getType(),
+                getJustification(),
                 getService().toAggregate(),
                 getTeen().toAggregate(),
                 isActive(),
@@ -190,6 +197,15 @@ public class PresenceJpaEntity {
 
     public PresenceJpaEntity setType(PresenceType type) {
         this.type = type;
+        return this;
+    }
+
+    public String getJustification() {
+        return justification;
+    }
+
+    public PresenceJpaEntity setJustification(String justification) {
+        this.justification = justification;
         return this;
     }
 

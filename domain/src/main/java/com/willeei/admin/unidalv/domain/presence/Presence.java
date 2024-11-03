@@ -21,6 +21,7 @@ public class Presence extends AggregateRoot<PresenceID> {
     private String month;
     private String year;
     private PresenceType type;
+    private String justification;
     private final Service service;
     private final Teen teen;
     private boolean active;
@@ -36,6 +37,7 @@ public class Presence extends AggregateRoot<PresenceID> {
             final String aMonth,
             final String aYear,
             final PresenceType aType,
+            final String aJustification,
             final Service aService,
             final Teen aTeen,
             final boolean isActive,
@@ -50,6 +52,7 @@ public class Presence extends AggregateRoot<PresenceID> {
         this.month = aMonth;
         this.year = aYear;
         this.type = aType;
+        this.justification = aJustification;
         this.service = aService;
         this.teen = aTeen;
         this.active = isActive;
@@ -62,6 +65,7 @@ public class Presence extends AggregateRoot<PresenceID> {
     public static Presence newPresence(
             final LocalDate aDate,
             final PresenceType aType,
+            final String aJustification,
             final Service aService,
             final Teen aTeen,
             final boolean isActive
@@ -87,6 +91,7 @@ public class Presence extends AggregateRoot<PresenceID> {
                 month,
                 year,
                 aType,
+                aJustification,
                 aService,
                 aTeen,
                 isActive,
@@ -104,6 +109,7 @@ public class Presence extends AggregateRoot<PresenceID> {
             final String aMonth,
             final String aYear,
             final PresenceType aType,
+            final String aJustification,
             final Service aService,
             final Teen aTeen,
             final boolean isActive,
@@ -119,6 +125,7 @@ public class Presence extends AggregateRoot<PresenceID> {
                 aMonth,
                 aYear,
                 aType,
+                aJustification,
                 aService,
                 aTeen,
                 isActive,
@@ -137,6 +144,7 @@ public class Presence extends AggregateRoot<PresenceID> {
                 aPresence.getMonth(),
                 aPresence.getYear(),
                 aPresence.getType(),
+                aPresence.getJustification(),
                 aPresence.getService(),
                 aPresence.getTeen(),
                 aPresence.isActive(),
@@ -154,6 +162,7 @@ public class Presence extends AggregateRoot<PresenceID> {
     public Presence update(
             final LocalDate aDate,
             final PresenceType aType,
+            final String aJustification,
             final boolean isActive
     ) {
         final var date = LocalDateUtils.with(aDate);
@@ -163,6 +172,7 @@ public class Presence extends AggregateRoot<PresenceID> {
         this.month = date.month();
         this.year = date.year();
         this.type = aType;
+        this.justification = aJustification;
         this.active = isActive;
         this.updatedAt = InstantUtils.now();
         selfValidate();
@@ -212,6 +222,10 @@ public class Presence extends AggregateRoot<PresenceID> {
 
     public PresenceType getType() {
         return type;
+    }
+
+    public String getJustification() {
+        return justification;
     }
 
     public Service getService() {
@@ -269,6 +283,7 @@ public class Presence extends AggregateRoot<PresenceID> {
                 + ", month='" + month + '\''
                 + ", year='" + year + '\''
                 + ", type=" + type
+                + ", justification='" + justification + '\''
                 + ", active=" + active
                 + ", updatedAt=" + updatedAt
                 + ", deletedAt=" + deletedAt

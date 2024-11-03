@@ -12,6 +12,7 @@ public record PresenceResponse(
         @JsonProperty("month") String month,
         @JsonProperty("year") String year,
         @JsonProperty("type") String type,
+        @JsonProperty("justification") String justification,
         @JsonProperty("service_id") String serviceID,
         @JsonProperty("teen_id") String teenID,
         @JsonProperty("is_active") boolean active,

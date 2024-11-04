@@ -15,10 +15,8 @@ public record PresenceListOutput(
         String year,
         PresenceType type,
         Teen teen,
-        boolean isActive,
         Instant createdAt,
-        Instant updatedAt,
-        Instant deletedAt) {
+        Instant updatedAt) {
 
     public static PresenceListOutput from(final Presence aPresence) {
         return new PresenceListOutput(
@@ -30,10 +28,8 @@ public record PresenceListOutput(
                 aPresence.getYear(),
                 aPresence.getType(),
                 aPresence.getTeen(),
-                aPresence.isActive(),
                 aPresence.getCreatedAt(),
-                aPresence.getUpdatedAt(),
-                aPresence.getDeletedAt()
+                aPresence.getUpdatedAt()
         );
     }
 }

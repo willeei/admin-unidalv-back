@@ -24,10 +24,8 @@ public class Presence extends AggregateRoot<PresenceID> {
     private String justification;
     private final Service service;
     private final Teen teen;
-    private boolean active;
     private final Instant createdAt;
     private Instant updatedAt;
-    private Instant deletedAt;
 
     private Presence(
             final PresenceID anId,
@@ -40,10 +38,8 @@ public class Presence extends AggregateRoot<PresenceID> {
             final String aJustification,
             final Service aService,
             final Teen aTeen,
-            final boolean isActive,
             final Instant aCreationDate,
-            final Instant aUpdateDate,
-            final Instant aDeletedDate
+            final Instant aUpdateDate
     ) {
         super(anId);
         this.day = aDay;
@@ -55,10 +51,8 @@ public class Presence extends AggregateRoot<PresenceID> {
         this.justification = aJustification;
         this.service = aService;
         this.teen = aTeen;
-        this.active = isActive;
         this.createdAt = aCreationDate;
         this.updatedAt = aUpdateDate;
-        this.deletedAt = aDeletedDate;
         selfValidate();
     }
 
@@ -67,14 +61,12 @@ public class Presence extends AggregateRoot<PresenceID> {
             final PresenceType aType,
             final String aJustification,
             final Service aService,
-            final Teen aTeen,
-            final boolean isActive
+            final Teen aTeen
     ) {
         Objects.requireNonNull(aDate, "'date' should not be null");
 
         final var anId = PresenceID.unique();
         final var now = Instant.now();
-        final var deletedAt = isActive ? null : now;
 
         final var date = LocalDateUtils.with(aDate);
         final var day = date.day();
@@ -94,10 +86,8 @@ public class Presence extends AggregateRoot<PresenceID> {
                 aJustification,
                 aService,
                 aTeen,
-                isActive,
                 now,
-                now,
-                deletedAt
+                now
         );
     }
 
@@ -112,10 +102,8 @@ public class Presence extends AggregateRoot<PresenceID> {
             final String aJustification,
             final Service aService,
             final Teen aTeen,
-            final boolean isActive,
             final Instant aCreationDate,
-            final Instant aUpdateDate,
-            final Instant aDeletedDate
+            final Instant aUpdateDate
     ) {
         return new Presence(
                 anId,
@@ -128,10 +116,8 @@ public class Presence extends AggregateRoot<PresenceID> {
                 aJustification,
                 aService,
                 aTeen,
-                isActive,
                 aCreationDate,
-                aUpdateDate,
-                aDeletedDate
+                aUpdateDate
         );
     }
 
@@ -147,10 +133,8 @@ public class Presence extends AggregateRoot<PresenceID> {
                 aPresence.getJustification(),
                 aPresence.getService(),
                 aPresence.getTeen(),
-                aPresence.isActive(),
                 aPresence.getCreatedAt(),
-                aPresence.getUpdatedAt(),
-                aPresence.getDeletedAt()
+                aPresence.getUpdatedAt()
         );
     }
 
@@ -162,8 +146,7 @@ public class Presence extends AggregateRoot<PresenceID> {
     public Presence update(
             final LocalDate aDate,
             final PresenceType aType,
-            final String aJustification,
-            final boolean isActive
+            final String aJustification
     ) {
         final var date = LocalDateUtils.with(aDate);
         this.day = date.day();
@@ -173,26 +156,8 @@ public class Presence extends AggregateRoot<PresenceID> {
         this.year = date.year();
         this.type = aType;
         this.justification = aJustification;
-        this.active = isActive;
         this.updatedAt = InstantUtils.now();
         selfValidate();
-        return this;
-    }
-
-    public Presence activate() {
-        this.deletedAt = null;
-        this.active = true;
-        this.updatedAt = InstantUtils.now();
-        return this;
-    }
-
-    public Presence deactivate() {
-        if (getDeletedAt() == null) {
-            this.deletedAt = InstantUtils.now();
-        }
-
-        this.active = false;
-        this.updatedAt = InstantUtils.now();
         return this;
     }
 
@@ -236,16 +201,8 @@ public class Presence extends AggregateRoot<PresenceID> {
         return teen;
     }
 
-    public boolean isActive() {
-        return active;
-    }
-
     public Instant getUpdatedAt() {
         return updatedAt;
-    }
-
-    public Instant getDeletedAt() {
-        return deletedAt;
     }
 
     private void selfValidate() {
@@ -284,9 +241,7 @@ public class Presence extends AggregateRoot<PresenceID> {
                 + ", year='" + year + '\''
                 + ", type=" + type
                 + ", justification='" + justification + '\''
-                + ", active=" + active
                 + ", updatedAt=" + updatedAt
-                + ", deletedAt=" + deletedAt
                 + '}';
     }
 }

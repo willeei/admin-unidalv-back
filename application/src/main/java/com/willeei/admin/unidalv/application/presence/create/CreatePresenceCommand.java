@@ -8,7 +8,6 @@ public record CreatePresenceCommand(
         LocalDate date,
         PresenceType type,
         String justification,
-        boolean isActive,
         String serviceId,
         String teenId) {
 
@@ -17,9 +16,8 @@ public record CreatePresenceCommand(
             final PresenceType aType,
             final String aJustification,
             final String aServiceId,
-            final String aTeenId,
-            final boolean isActive
+            final String aTeenId
     ) {
-        return new CreatePresenceCommand(aDate, aType, aJustification, isActive, aServiceId, aTeenId);
+        return new CreatePresenceCommand(aDate, aType, aJustification, aServiceId, aTeenId);
     }
 }

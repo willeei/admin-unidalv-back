@@ -31,7 +31,7 @@ public class PresenceValidator extends Validator {
         final var justification = this.presence.getJustification();
 
         if (type != null) {
-            if (type.equals(PresenceType.PRESENT) || type.equals(PresenceType.ABSENT) && justification != null) {
+            if ((type.equals(PresenceType.PRESENT) || type.equals(PresenceType.ABSENT)) && justification != null) {
                 this.validationHandler().append(new Error("'justification' should only be user with type 'JUSTIFIED'"));
                 return;
             }

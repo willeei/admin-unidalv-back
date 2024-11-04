@@ -8,16 +8,14 @@ public record UpdatePresenceCommand(
         String id,
         LocalDate date,
         PresenceType type,
-        String justification,
-        boolean isActive) {
+        String justification) {
 
     public static UpdatePresenceCommand with(
             final String anId,
             final LocalDate aDate,
             final PresenceType aType,
-            final String aJustification,
-            final boolean aIsActive
+            final String aJustification
     ) {
-        return new UpdatePresenceCommand(anId, aDate, aType, aJustification, aIsActive);
+        return new UpdatePresenceCommand(anId, aDate, aType, aJustification);
     }
 }

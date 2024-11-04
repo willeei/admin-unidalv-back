@@ -52,8 +52,7 @@ public class PresenceController implements PresenceAPI {
                 req.type(),
                 req.justification(),
                 req.serviceId(),
-                req.teenId(),
-                req.active() != null ? req.active() : Boolean.TRUE
+                req.teenId()
         );
 
         final var output = createPresenceUseCase.execute(aCmd);
@@ -81,7 +80,7 @@ public class PresenceController implements PresenceAPI {
     @Override
     public ResponseEntity<?> updateById(final String id, final UpdatePresenceRequest req) {
         final var aCommand
-                = UpdatePresenceCommand.with(id, req.date(), req.type(), req.justification(), req.active());
+                = UpdatePresenceCommand.with(id, req.date(), req.type(), req.justification());
 
         final var output = this.updatePresenceUseCase.execute(aCommand);
 

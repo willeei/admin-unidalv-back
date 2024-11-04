@@ -18,10 +18,8 @@ public record PresenceOutput(
         String justification,
         Service service,
         Teen teen,
-        boolean isActive,
         Instant createdAt,
-        Instant updatedAt,
-        Instant deletedAt) {
+        Instant updatedAt) {
 
     public static PresenceOutput from(final Presence aPresence) {
         return new PresenceOutput(
@@ -35,10 +33,8 @@ public record PresenceOutput(
                 aPresence.getJustification(),
                 aPresence.getService(),
                 aPresence.getTeen(),
-                aPresence.isActive(),
                 aPresence.getCreatedAt(),
-                aPresence.getUpdatedAt(),
-                aPresence.getDeletedAt()
+                aPresence.getUpdatedAt()
         );
     }
 }

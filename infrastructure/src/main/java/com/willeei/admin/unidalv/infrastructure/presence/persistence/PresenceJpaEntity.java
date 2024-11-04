@@ -47,17 +47,11 @@ public class PresenceJpaEntity {
     @Column(name = "justification")
     private String justification;
 
-    @Column(name = "active", nullable = false)
-    private boolean active;
-
     @Column(name = "created_at", nullable = false, columnDefinition = "DATETIME(6)")
     private Instant createdAt;
 
     @Column(name = "updated_at", nullable = false, columnDefinition = "DATETIME(6)")
     private Instant updatedAt;
-
-    @Column(name = "deleted_at", columnDefinition = "DATETIME(6)")
-    private Instant deletedAt;
 
     @ManyToOne
     private ServiceJpaEntity service;
@@ -77,10 +71,8 @@ public class PresenceJpaEntity {
             final String weekYear,
             final PresenceType type,
             final String justification,
-            final boolean active,
             final Instant createdAt,
-            final Instant updatedAt,
-            final Instant deletedAt
+            final Instant updatedAt
     ) {
         this.id = id;
         this.day = day;
@@ -90,10 +82,8 @@ public class PresenceJpaEntity {
         this.weekYear = weekYear;
         this.type = type;
         this.justification = justification;
-        this.active = active;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.deletedAt = deletedAt;
     }
 
     public static PresenceJpaEntity from(final Presence presence) {
@@ -106,10 +96,8 @@ public class PresenceJpaEntity {
                 presence.getWeekYear(),
                 presence.getType(),
                 presence.getJustification(),
-                presence.isActive(),
                 presence.getCreatedAt(),
-                presence.getUpdatedAt(),
-                presence.getDeletedAt()
+                presence.getUpdatedAt()
         );
 
         entity.setService(ServiceJpaEntity.from(presence.getService(), Set.of(entity)));
@@ -130,10 +118,8 @@ public class PresenceJpaEntity {
                 getJustification(),
                 getService().toAggregate(),
                 getTeen().toAggregate(),
-                isActive(),
                 getCreatedAt(),
-                getUpdatedAt(),
-                getDeletedAt()
+                getUpdatedAt()
         );
     }
 
@@ -209,15 +195,6 @@ public class PresenceJpaEntity {
         return this;
     }
 
-    public boolean isActive() {
-        return active;
-    }
-
-    public PresenceJpaEntity setActive(boolean active) {
-        this.active = active;
-        return this;
-    }
-
     public Instant getCreatedAt() {
         return createdAt;
     }
@@ -233,15 +210,6 @@ public class PresenceJpaEntity {
 
     public PresenceJpaEntity setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
-        return this;
-    }
-
-    public Instant getDeletedAt() {
-        return deletedAt;
-    }
-
-    public PresenceJpaEntity setDeletedAt(Instant deletedAt) {
-        this.deletedAt = deletedAt;
         return this;
     }
 

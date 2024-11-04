@@ -24,7 +24,6 @@ class PresenceTest extends UnitTest {
         final var expectedYear = date.year();
 
         final var expectedType = PresenceType.PRESENT;
-        final var expectedActive = true;
 
         final var expectedService = Fixture.service();
         final var expectedTeen = Fixture.teen();
@@ -35,8 +34,7 @@ class PresenceTest extends UnitTest {
                 expectedType,
                 null,
                 expectedService,
-                expectedTeen,
-                expectedActive
+                expectedTeen
         );
 
         // then
@@ -49,12 +47,10 @@ class PresenceTest extends UnitTest {
         Assertions.assertEquals(expectedYear, actualPresence.getYear());
         Assertions.assertEquals(expectedType, actualPresence.getType());
         Assertions.assertNull(actualPresence.getJustification());
-        Assertions.assertEquals(expectedActive, actualPresence.isActive());
         Assertions.assertEquals(expectedService, actualPresence.getService());
         Assertions.assertEquals(expectedTeen, actualPresence.getTeen());
         Assertions.assertNotNull(actualPresence.getCreatedAt());
         Assertions.assertNotNull(actualPresence.getUpdatedAt());
-        Assertions.assertNull(actualPresence.getDeletedAt());
     }
 
     @Test
@@ -64,7 +60,6 @@ class PresenceTest extends UnitTest {
         final var expectedType = PresenceType.PRESENT;
         final var expectedService = Fixture.service();
         final var expectedTeen = Fixture.teen();
-        final var expectedActive = true;
 
         final var expectedErrorCount = 1;
         final var expectedErrorMessage = "'justification' should only be user with type 'JUSTIFIED'";
@@ -77,8 +72,7 @@ class PresenceTest extends UnitTest {
                         expectedType,
                         "Justification",
                         expectedService,
-                        expectedTeen,
-                        expectedActive
+                        expectedTeen
                 )
         );
 
@@ -94,7 +88,6 @@ class PresenceTest extends UnitTest {
         final var expectedType = PresenceType.ABSENT;
         final var expectedService = Fixture.service();
         final var expectedTeen = Fixture.teen();
-        final var expectedActive = true;
 
         final var expectedErrorCount = 1;
         final var expectedErrorMessage = "'justification' should only be user with type 'JUSTIFIED'";
@@ -107,8 +100,7 @@ class PresenceTest extends UnitTest {
                         expectedType,
                         "Justification",
                         expectedService,
-                        expectedTeen,
-                        expectedActive
+                        expectedTeen
                 )
         );
 
@@ -121,8 +113,8 @@ class PresenceTest extends UnitTest {
     void givenAnInvalidNullType_whenCallNewPresence_thenShouldReceiveANotification() {
         // given
         final var localDate = LocalDate.now();
-        final var expectedValid = true;
         final var expectedService = Fixture.service();
+        final var expectedTeen = Fixture.teen();
 
         final var expectedErrorCount = 1;
         final var expectedErrorMessage = "'type' should not be null";
@@ -130,7 +122,7 @@ class PresenceTest extends UnitTest {
         // when
         final var actualException = Assertions.assertThrows(
                 NotificationException.class,
-                () -> Presence.newPresence(localDate, null, null, expectedService, null, expectedValid)
+                () -> Presence.newPresence(localDate, null, null, expectedService, expectedTeen)
         );
 
         // then
@@ -141,11 +133,15 @@ class PresenceTest extends UnitTest {
     @Test
     void givenAnInvalidNullDate_whenCallNewPresenceAndValidate_thenShouldReceiveError() {
         // given
+        final var expectedService = Fixture.service();
+        final var expectedTeen = Fixture.teen();
+        final var expectedType = PresenceType.ABSENT;
+
         final var expectedException = new NullPointerException("date should not be null");
         final var actualException = Assertions.assertThrows(
                 expectedException.getClass(),
                 () -> Presence.newPresence(
-                        null, Fixture.FakePresence.type(), null, null, null, Fixture.bool()
+                        null, expectedType, null, expectedService, expectedTeen
                 )
         );
 
@@ -159,7 +155,6 @@ class PresenceTest extends UnitTest {
         final var expectedType = PresenceType.JUSTIFIED;
         final var expectedService = Fixture.service();
         final var expectedTeen = Fixture.teen();
-        final var expectedActive = true;
 
         final var expectedErrorCount = 1;
         final var expectedErrorMessage = "'justification' should not be null";
@@ -172,8 +167,7 @@ class PresenceTest extends UnitTest {
                         expectedType,
                         null,
                         expectedService,
-                        expectedTeen,
-                        expectedActive
+                        expectedTeen
                 )
         );
 
@@ -189,7 +183,6 @@ class PresenceTest extends UnitTest {
         final var expectedType = PresenceType.JUSTIFIED;
         final var expectedService = Fixture.service();
         final var expectedTeen = Fixture.teen();
-        final var expectedActive = true;
 
         final var expectedErrorCount = 1;
         final var expectedErrorMessage = "'justification' should not be empty";
@@ -202,8 +195,7 @@ class PresenceTest extends UnitTest {
                         expectedType,
                         "",
                         expectedService,
-                        expectedTeen,
-                        expectedActive
+                        expectedTeen
                 )
         );
 

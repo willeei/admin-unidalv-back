@@ -8,8 +8,7 @@ import com.willeei.admin.unidalv.domain.presence.PresenceType;
 public record UpdatePresenceRequest(
         @JsonProperty("date") LocalDate date,
         @JsonProperty("type") PresenceType type,
-        @JsonProperty("justification") String justification,
-        @JsonProperty("is_active") Boolean active
+        @JsonProperty("justification") String justification
 ) {
 
 }

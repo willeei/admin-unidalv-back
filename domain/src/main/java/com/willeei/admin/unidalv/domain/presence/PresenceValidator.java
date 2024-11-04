@@ -30,13 +30,20 @@ public class PresenceValidator extends Validator {
         final var type = this.presence.getType();
         final var justification = this.presence.getJustification();
 
-        if (type.equals(PresenceType.JUSTIFIED) && justification == null) {
-            this.validationHandler().append(new Error("'justification' should not be null"));
-            return;
-        }
+        if (type != null) {
+            if (type.equals(PresenceType.PRESENT) || type.equals(PresenceType.ABSENT) && justification != null) {
+                this.validationHandler().append(new Error("'justification' should only be user with type 'JUSTIFIED'"));
+                return;
+            }
+            
+            if (type.equals(PresenceType.JUSTIFIED) && justification == null) {
+                this.validationHandler().append(new Error("'justification' should not be null"));
+                return;
+            }
 
-        if (type.equals(PresenceType.JUSTIFIED) && justification.isBlank()) {
-            this.validationHandler().append(new Error("'justification' should not be empty"));
+            if (type.equals(PresenceType.JUSTIFIED) && justification != null && justification.isBlank()) {
+                this.validationHandler().append(new Error("'justification' should not be empty"));
+            }
         }
     }
 }

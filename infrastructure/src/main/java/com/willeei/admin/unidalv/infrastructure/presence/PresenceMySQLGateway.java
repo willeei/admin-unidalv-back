@@ -58,7 +58,7 @@ public class PresenceMySQLGateway implements PresenceGateway {
     @Override
     @Transactional
     public Pagination<Presence> findAll(SearchQuery aQuery) {
-        // Paginação
+        // Pagination
         final var page = PageRequest.of(
                 aQuery.page(),
                 aQuery.perPage(),

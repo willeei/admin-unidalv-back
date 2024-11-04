@@ -42,10 +42,14 @@ class EntityTest extends UnitTest {
         Assertions.assertNotNull(anEntity.getDomainEvents());
         Assertions.assertEquals(1, anEntity.getDomainEvents().size());
 
-        Assertions.assertThrows(RuntimeException.class, () -> {
+        final var expectedExceptionClass = RuntimeException.class;
+
+        final var actualException = Assertions.assertThrows(expectedExceptionClass, () -> {
             final var actualEvents = anEntity.getDomainEvents();
             actualEvents.add((DomainEvent) InstantUtils::now);
         });
+
+        Assertions.assertNotNull(actualException);
     }
 
     @Test

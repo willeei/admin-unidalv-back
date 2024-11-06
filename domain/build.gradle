@@ -3,7 +3,7 @@ plugins {
     id 'java-library'
 }
 
-group = 'com.willeei.unidalv'
+group = 'br.com.wbrq.admin.unidalv.domain'
 
 dependencies {
     testImplementation 'net.datafaker:datafaker:2.4.0'

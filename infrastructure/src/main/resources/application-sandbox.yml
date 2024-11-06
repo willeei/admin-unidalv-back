@@ -5,7 +5,7 @@ keycloak:
 mysql:
   username: ${DATABASE_MYSQL_USERNAME:root}
   password: ${DATABASE_MYSQL_PASSWORD:123456}
-  schema: adm_videos
+  schema: adm_unidalv
   url: ${DATABASE_MYSQL_URL:localhost:3306}
 
 server:

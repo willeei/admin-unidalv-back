@@ -3,7 +3,7 @@ plugins {
     id 'java-library'
 }
 
-group = 'com.willeei.unidalv'
+group = 'br.com.wbrq.admin.unidalv.application'
 
 dependencies {
     implementation(project(':domain'))

@@ -16,7 +16,7 @@ plugins {
     id 'org.flywaydb.flyway' version '10.18.2'
 }
 
-group = 'com.willeei.admin.unidalv'
+group = 'br.com.wbrq.admin.unidalv.infrastructure'
 
 bootJar {
     archiveBaseName.set('application.jar')

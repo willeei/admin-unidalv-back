@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group = 'com.willeei.admin.unidalv'
+group = 'br.com.wbrq.admin.unidalv'
 version = '1.0-SNAPSHOT'
 
 repositories {

@@ -1,0 +1,14 @@
+package br.com.wbrq.admin.unidalv.infrastructure.presence.models;
+
+import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import br.com.wbrq.admin.unidalv.domain.presence.PresenceType;
+
+public record UpdatePresenceRequest(
+        @JsonProperty("date") LocalDate date,
+        @JsonProperty("type") PresenceType type,
+        @JsonProperty("justification") String justification
+) {
+
+}

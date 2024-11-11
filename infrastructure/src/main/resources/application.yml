@@ -1,7 +1,7 @@
 logging:
   level:
     ROOT: INFO
-    "[com.willeei.admin.unidalv]": DEBUG
+    "[br.com.wbrq.admin.unidalv]": DEBUG
 
 server:
   compression:

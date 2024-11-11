@@ -1,6 +1,7 @@
 package br.com.wbrq.admin.unidalv.infrastructure.service.persistence;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +11,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface ServiceRepository extends JpaRepository<ServiceJpaEntity, String> {
+
+    @Query("SELECT s FROM Service s LEFT JOIN FETCH s.presences WHERE s.id = :id")
+    Optional<ServiceJpaEntity> findByIdWithPresences(String id);
 
     Page<ServiceJpaEntity> findAll(Specification<ServiceJpaEntity> whereClause, Pageable pageable);
 

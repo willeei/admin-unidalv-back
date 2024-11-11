@@ -13,23 +13,20 @@ import br.com.wbrq.admin.unidalv.application.service.retrieve.list.DefaultListSe
 import br.com.wbrq.admin.unidalv.application.service.retrieve.list.ListServiceUseCase;
 import br.com.wbrq.admin.unidalv.application.service.update.DefaultUpdateServiceUseCase;
 import br.com.wbrq.admin.unidalv.application.service.update.UpdateServiceUseCase;
-import br.com.wbrq.admin.unidalv.domain.presence.PresenceGateway;
 import br.com.wbrq.admin.unidalv.domain.service.ServiceGateway;
 
 @Configuration
 public class ServiceUseCaseConfig {
 
     private final ServiceGateway serviceGateway;
-    private final PresenceGateway presenceGateway;
 
-    public ServiceUseCaseConfig(final ServiceGateway serviceGateway, final PresenceGateway presenceGateway) {
+    public ServiceUseCaseConfig(final ServiceGateway serviceGateway) {
         this.serviceGateway = serviceGateway;
-        this.presenceGateway = presenceGateway;
     }
 
     @Bean
     public CreateServiceUseCase createServiceUseCase() {
-        return new DefaultCreateServiceUseCase(serviceGateway, presenceGateway);
+        return new DefaultCreateServiceUseCase(serviceGateway);
     }
 
     @Bean
@@ -49,6 +46,6 @@ public class ServiceUseCaseConfig {
 
     @Bean
     public UpdateServiceUseCase updateServiceUseCase() {
-        return new DefaultUpdateServiceUseCase(serviceGateway, presenceGateway);
+        return new DefaultUpdateServiceUseCase(serviceGateway);
     }
 }

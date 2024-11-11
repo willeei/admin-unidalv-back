@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -53,10 +54,10 @@ public class PresenceJpaEntity {
     @Column(name = "updated_at", nullable = false, columnDefinition = "DATETIME(6)")
     private Instant updatedAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private ServiceJpaEntity service;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private TeenJpaEntity teen;
 
     public PresenceJpaEntity() {
@@ -100,7 +101,7 @@ public class PresenceJpaEntity {
                 presence.getUpdatedAt()
         );
 
-        entity.setService(ServiceJpaEntity.from(presence.getService(), Set.of(entity)));
+        entity.setService(ServiceJpaEntity.from(presence.getService()));
         entity.setTeen(TeenJpaEntity.from(presence.getTeen(), Set.of(entity)));
 
         return entity;

@@ -1,7 +1,6 @@
 package br.com.wbrq.admin.unidalv.infrastructure.service.persistence;
 
 import java.time.Instant;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -43,13 +42,13 @@ public class ServiceJpaEntity {
     @Column(name = "updated_at", nullable = false, columnDefinition = "DATETIME(6)")
     private Instant updatedAt;
 
-    @Column(name = "deleted_at", nullable = false, columnDefinition = "DATETIME(6)")
+    @Column(name = "deleted_at", columnDefinition = "DATETIME(6)")
     private Instant deletedAt;
 
     public ServiceJpaEntity() {
     }
 
-    public ServiceJpaEntity(
+    private ServiceJpaEntity(
             final String id,
             final String name,
             final int point,
@@ -62,10 +61,21 @@ public class ServiceJpaEntity {
         this.name = name;
         this.point = point;
         this.active = active;
-        this.presences = new HashSet<>();
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
+    }
+
+    public static ServiceJpaEntity from(final Service aService) {
+        return new ServiceJpaEntity(
+                aService.getId().getValue(),
+                aService.getName(),
+                aService.getPoint(),
+                aService.isActive(),
+                aService.getCreatedAt(),
+                aService.getUpdatedAt(),
+                aService.getDeletedAt()
+        );
     }
 
     public static ServiceJpaEntity from(final Service aService, final Set<PresenceJpaEntity> presences) {
@@ -80,6 +90,7 @@ public class ServiceJpaEntity {
         );
 
         entity.setPresences(presences);
+
         return entity;
     }
 
@@ -89,13 +100,17 @@ public class ServiceJpaEntity {
                 getName(),
                 getPoint(),
                 isActive(),
-                getPresences().stream()
-                        .map(it -> PresenceID.from(it.getId()))
-                        .collect(Collectors.toSet()),
+                getPresencesIds(),
                 getCreatedAt(),
                 getUpdatedAt(),
                 getDeletedAt()
         );
+    }
+
+    public Set<PresenceID> getPresencesIds() {
+        return presences.stream()
+                .map(it -> PresenceID.from(it.getId()))
+                .collect(Collectors.toSet());
     }
 
     public String getId() {
@@ -160,5 +175,16 @@ public class ServiceJpaEntity {
 
     public void setDeletedAt(Instant deletedAt) {
         this.deletedAt = deletedAt;
+    }
+
+    public void updatePresences(final Set<PresenceJpaEntity> newPresences) {
+        this.presences.removeIf(p -> !newPresences.contains(p));
+
+        for (final var newPresence : newPresences) {
+            if (!this.presences.contains(newPresence)) {
+                this.presences.add(newPresence);
+                newPresence.setService(this);
+            }
+        }
     }
 }

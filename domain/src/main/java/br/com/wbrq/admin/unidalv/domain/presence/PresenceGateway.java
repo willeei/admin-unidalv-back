@@ -2,9 +2,11 @@ package br.com.wbrq.admin.unidalv.domain.presence;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import br.com.wbrq.admin.unidalv.domain.pagination.Pagination;
 import br.com.wbrq.admin.unidalv.domain.pagination.SearchQuery;
+import br.com.wbrq.admin.unidalv.domain.service.ServiceID;
 
 public interface PresenceGateway {
 
@@ -19,4 +21,6 @@ public interface PresenceGateway {
     Optional<Presence> findById(PresenceID anId);
 
     Presence update(Presence aPresence);
+
+    Set<Presence> findByServiceId(ServiceID id);
 }

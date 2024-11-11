@@ -97,8 +97,7 @@ public class Service extends AggregateRoot<ServiceID> {
     public Service update(
             final String aName,
             final int aPoint,
-            final boolean isActive,
-            final Set<PresenceID> presences
+            final boolean isActive
     ) {
         if (isActive) {
             activate();

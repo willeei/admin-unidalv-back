@@ -4,6 +4,8 @@ import static br.com.wbrq.admin.unidalv.infrastructure.utils.SpecificationUtils.
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import javax.transaction.Transactional;
@@ -19,6 +21,7 @@ import br.com.wbrq.admin.unidalv.domain.pagination.SearchQuery;
 import br.com.wbrq.admin.unidalv.domain.presence.Presence;
 import br.com.wbrq.admin.unidalv.domain.presence.PresenceGateway;
 import br.com.wbrq.admin.unidalv.domain.presence.PresenceID;
+import br.com.wbrq.admin.unidalv.domain.service.ServiceID;
 import br.com.wbrq.admin.unidalv.infrastructure.presence.persistence.PresenceJpaEntity;
 import br.com.wbrq.admin.unidalv.infrastructure.presence.persistence.PresenceRepository;
 
@@ -85,6 +88,13 @@ public class PresenceMySQLGateway implements PresenceGateway {
     @Transactional
     public Optional<Presence> findById(final PresenceID anId) {
         return this.repository.findById(anId.getValue()).map(PresenceJpaEntity::toAggregate);
+    }
+
+    @Override
+    public Set<Presence> findByServiceId(final ServiceID id) {
+        return this.repository.findByServiceId(id.getValue()).stream()
+                .map(PresenceJpaEntity::toAggregate)
+                .collect(Collectors.toSet());
     }
 
     @Override

@@ -15,7 +15,7 @@ import br.com.wbrq.admin.unidalv.application.presence.update.UpdatePresenceComma
 import br.com.wbrq.admin.unidalv.application.presence.update.UpdatePresenceUseCase;
 import br.com.wbrq.admin.unidalv.domain.pagination.Pagination;
 import br.com.wbrq.admin.unidalv.domain.pagination.SearchQuery;
-import br.com.wbrq.admin.unidalv.infrastructure.api.ServiceAPI;
+import br.com.wbrq.admin.unidalv.infrastructure.api.PresenceAPI;
 import br.com.wbrq.admin.unidalv.infrastructure.presence.models.CreatePresenceRequest;
 import br.com.wbrq.admin.unidalv.infrastructure.presence.models.PresenceListResponse;
 import br.com.wbrq.admin.unidalv.infrastructure.presence.models.PresenceResponse;
@@ -23,7 +23,7 @@ import br.com.wbrq.admin.unidalv.infrastructure.presence.models.UpdatePresenceRe
 import br.com.wbrq.admin.unidalv.infrastructure.presence.presenters.PresencePresenter;
 
 @RestController
-public class PresenceController implements ServiceAPI {
+public class PresenceController implements PresenceAPI {
 
     private final CreatePresenceUseCase createPresenceUseCase;
     private final DeletePresenceUseCase deletePresenceUseCase;
